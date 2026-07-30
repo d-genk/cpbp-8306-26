@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPBP 8306 — Session 1: Thinking Like a Coder</title>
+<link rel="stylesheet" href="assets/deck.css">
+</head>
+<body>
+<div id="stage"><div id="scaler">
+
+<!-- ================================================================= 1 -->
+<section class="slide title">
+  <p class="kicker">CPBP 8306 &middot; Coding for Research &middot; Session 1</p>
+  <h1>Thinking Like a Coder</h1>
+  <hr>
+  <p>Course intro, setup, and the one skill that survives AI</p>
+  <p><small>Borycz &amp; Genkins &middot; TA: Coleman &middot; Unit 1 — Foundations</small></p>
+  <script type="text/notes">
+    <ul>
+      <li>Take attendance / confirm everyone got the pre-work email.</li>
+      <li>Hands up: who has written code before? Who has used ChatGPT to write code? Use the second number later — it will be nearly everyone.</li>
+      <li>Have <code>hello.py</code> open in VS Code in a second window before class starts.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 2 -->
+<section class="slide mid">
+  <p class="kicker">The honest conversation</p>
+  <h2>Every one of you will ask an AI to write code this semester.</h2>
+  <p class="big">That is fine. That is the job now.</p>
+  <p class="big">The problem is that most first-time programmers <strong>cannot tell whether the code they got back does what they need.</strong></p>
+  <p class="big">This course exists to fix exactly that.</p>
+  <script type="text/notes">
+    <ul>
+      <li>Say this plainly and early. If students think we're policing AI use they will hide it, and then we can't teach them to use it well.</li>
+      <li>Tone: matter-of-fact, not scolding.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 3 -->
+<section class="slide">
+  <p class="kicker">Demonstration</p>
+  <h2>Syntax is free now</h2>
+  <p>Prompt: <em>&ldquo;Write Python to test whether blood pressure differs between treatment groups.&rdquo;</em></p>
+  <pre class="py sm">
+import pandas as pd
+from scipy import stats
+
+df = pd.read_csv("data/patients.csv")
+group_a = df[df["group"] == "A"]["systolic"].dropna()
+group_b = df[df["group"] == "B"]["systolic"].dropna()
+
+t, p = stats.ttest_ind(group_a, group_b)
+print(f"p = {p:.4f}")
+</pre>
+  <p class="out">p = 0.2152</p>
+  <p><strong>It runs. It reports no significant difference. Do we write that up?</strong></p>
+  <script type="text/notes">
+    <ul>
+      <li>Run this live — it's <code>demos/01_the_hook.py</code> against the real course dataset. The numbers on this slide are the actual output.</li>
+      <li>Read the code out loud in English before moving on — model the behavior you want from them.</li>
+      <li>Deliberately do NOT explain the bug yet. Let the next slide land.</li>
+      <li>Show of hands: "who thinks this is fine?" Most hands go up. That's the point.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 4 -->
+<section class="slide">
+  <p class="kicker">Demonstration</p>
+  <h2>It ran. It was still wrong.</h2>
+  <div class="cols">
+    <div>
+      <div class="box warn">
+        <p class="box-title">What actually happened</p>
+        <p class="sm">The <code>group</code> column contains <code>"A"</code>, <code>"B"</code> &mdash; and <code>"A&nbsp;"</code>, with a trailing space, in 40 rows entered at a second site.</p>
+        <p class="sm"><code>== "A"</code> silently discarded those 40. Worse, they were the site with <em>lower</em> pressures &mdash; so the analysis ran on 201 of 250 patients and lost exactly the rows that mattered.</p>
+      </div>
+    </div>
+    <div>
+      <div class="box ok">
+        <p class="box-title">The same test, done right</p>
+        <pre class="py xs plain" style="background:none;border:none;padding:0;margin:0 0 8px">df["group"] = df["group"].str.strip()</pre>
+        <p class="sm">A: <strong>129.4</strong> mmHg &nbsp;&middot;&nbsp; B: <strong>134.2</strong> mmHg</p>
+        <p class="sm"><strong>p = 0.0064</strong></p>
+        <p class="sm">There <em>was</em> a difference. The first version would have thrown it away.</p>
+      </div>
+    </div>
+  </div>
+  <div class="box gold">
+    <p class="box-title">The lesson</p>
+    <p class="sm">Nothing errored. Nothing warned. The AI cannot catch this, because <strong>it requires knowing something about your data that is not in the code.</strong></p>
+  </div>
+  <script type="text/notes">
+    <ul>
+      <li>The trailing-space bug is real and extremely common in research data. Tell a war story if you have one.</li>
+      <li>Key framing: the AI was not "wrong." It answered the question it was asked. The question was underspecified.</li>
+      <li>This is a <strong>false negative</strong> — the most dangerous kind, because a null result rarely gets scrutinised. Say that.</li>
+      <li>Other things nobody checked, if you have time: 9 missing systolic values were silently dropped; <code>ttest_ind</code> assumes equal variances by default; nobody looked at effect size. Don't go deep — that's Session 11.</li>
+      <li>Foreshadow Session 9: group A's distribution here is visibly bimodal. A single histogram would have exposed this in two seconds. That is why "look before you test" is a whole week.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 5 -->
+<section class="slide statement">
+  <h2>We do not care whether you memorize syntax.</h2>
+  <p class="big"><span class="gold">We care whether you can read a block of code and tell us what it does and whether it is right.</span></p>
+  <script type="text/notes">
+    <ul>
+      <li>This is the course contract. Say it out loud. Repeat it in week 6 and week 13.</li>
+      <li>It is also literally the final quiz format — tell them so.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 6 -->
+<section class="slide">
+  <h2>What this course is, and isn't</h2>
+  <div class="cols">
+    <div>
+      <div class="box ok">
+        <p class="box-title">It is</p>
+        <ul class="tight">
+          <li>The <em>logic</em> underneath the syntax</li>
+          <li>Reading code critically</li>
+          <li>Knowing what to ask for, in the right vocabulary</li>
+          <li>Knowing how to check an answer</li>
+          <li>Owning the analysis that carries your name</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="box warn">
+        <p class="box-title">It isn't</p>
+        <ul class="tight">
+          <li>Memorizing function signatures</li>
+          <li>A ban on AI (use it — we'll teach you how)</li>
+          <li>A software engineering course</li>
+          <li>A statistics course (though we'll cover enough to keep you out of trouble)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="box gold">
+    <p class="box-title">The corollary you cannot delegate</p>
+    <p>You are the scientist. The code has your name on it. <strong>If an AI wrote a bug and the paper is wrong, that is your bug and your paper.</strong></p>
+  </div>
+  <script type="text/notes">
+    <ul>
+      <li>Pause on the corollary. This is the ethical core of the course and it takes 10 seconds to say.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 7 -->
+<section class="slide">
+  <h2>By the end of today you can&hellip;</h2>
+  <ol class="big">
+    <li>Run a one-line program in Python and in R, in three different tools.</li>
+    <li>Say in one sentence what a program <em>is</em>.</li>
+    <li>Take a research question and break it into numbered steps a computer could do.</li>
+    <li>Name one thing AI is reliably good at and one it is reliably bad at.</li>
+  </ol>
+  <div class="footnote">Objectives 2 and 3 are the ones we actually grade. Objective 1 is plumbing.</div>
+  <script type="text/notes">
+    <ul>
+      <li>Keep this slide up while you say the agenda; don't read it aloud verbatim.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 8 -->
+<section class="slide">
+  <h2>Today</h2>
+  <table>
+    <thead><tr><th style="width:130px">Minutes</th><th>What</th></tr></thead>
+    <tbody>
+      <tr><td>0&ndash;5</td><td>Why this course exists <span class="tag ok">done</span></td></tr>
+      <tr><td>5&ndash;12</td><td>Tool tour &mdash; everyone runs hello world</td></tr>
+      <tr><td>12&ndash;22</td><td><strong>Decomposition</strong> &mdash; the load-bearing skill</td></tr>
+      <tr><td>22&ndash;28</td><td>What AI is and is not good at</td></tr>
+      <tr><td>28&ndash;30</td><td>Your tutor activity</td></tr>
+      <tr><td>30&ndash;55</td><td>Guided activity with the Week 1 tutor</td></tr>
+    </tbody>
+  </table>
+  <script type="text/notes">
+    <ul>
+      <li>Time check: you should hit this slide at ~5 minutes. If you're at 8, cut the tool tour to a 3-minute flyover and let them fix installs during the activity.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================= 9 -->
+<section class="slide">
+  <p class="kicker">Segment 2 &middot; 5&ndash;12 min</p>
+  <h2>Six tools, and the problem each one solves</h2>
+  <table class="xs">
+    <thead><tr><th style="width:180px">Tool</th><th>What it actually is</th><th>When you touch it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Python</strong></td><td>An interpreter — the program that runs <code>.py</code> files</td><td>Anywhere you run Python</td></tr>
+      <tr><td><strong>R</strong></td><td>An interpreter for R</td><td>Anywhere you run R</td></tr>
+      <tr><td><strong>VS Code</strong></td><td>A text editor. That is all it is.</td><td>Python files, notebooks</td></tr>
+      <tr><td><strong>RStudio</strong></td><td>Editor + console + plots + packages, built for R</td><td>Everything R</td></tr>
+      <tr><td><strong>Jupyter</strong></td><td>A document mixing code, its output, and prose</td><td>Exploring; sharing analyses</td></tr>
+      <tr><td><strong>Copilot</strong></td><td>An AI that autocompletes <em>while you type</em></td><td>Inside either editor</td></tr>
+      <tr><td><strong>ChatGPT / Claude</strong></td><td>An AI you have a conversation with</td><td>&ldquo;How do I&hellip;&rdquo; / &ldquo;Why is this broken?&rdquo;</td></tr>
+    </tbody>
+  </table>
+  <div class="footnote">The two most common week-1 confusions: <em>Python is not VS Code</em>, and <em>Copilot is not ChatGPT</em>.</div>
+  <script type="text/notes">
+    <ul>
+      <li>Analogy that lands: the interpreter is the engine, the editor is the dashboard. You can put any dashboard in front of the engine.</li>
+      <li>Second analogy: Copilot is autocomplete on your phone. ChatGPT is texting a colleague. Different tools, different failure modes.</li>
+      <li>Copilot is free for students via GitHub Education — remind them to verify their .edu.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 10 -->
+<section class="slide">
+  <p class="kicker">Live &mdash; everyone types along</p>
+  <h2>Hello, research</h2>
+  <div class="cols">
+    <div>
+      <p><span class="tag py">Python</span> &nbsp;<small style="display:inline">file: <code>hello.py</code></small></p>
+      <pre class="py">
+print("hello, research")
+</pre>
+      <p class="out">hello, research</p>
+    </div>
+    <div>
+      <p><span class="tag r">R</span> &nbsp;<small style="display:inline">file: <code>hello.R</code></small></p>
+      <pre class="r">
+print("hello, research")
+</pre>
+      <p class="out">hello, research</p>
+    </div>
+  </div>
+  <div class="box gold">
+    <p class="box-title">Notice</p>
+    <p>The code is <strong>identical.</strong> Both say: run the <code>print</code> function on the text <code>hello, research</code>. The differences between Python and R are mostly cosmetic. <strong>What you learn in one transfers to the other.</strong></p>
+  </div>
+  <script type="text/notes">
+    <ul>
+      <li>Do this live in three places: a <code>.py</code> file in VS Code, a Jupyter cell, and an <code>.R</code> script in RStudio. Ninety seconds total.</li>
+      <li>Deliberately make one typo (<code>prnt</code>) and show the error. Say: "you will see a lot of these; they are not a sign you're bad at this."</li>
+      <li>Walk the room while they type. The install failures surface here, not in office hours.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 11 -->
+<section class="slide mid center">
+  <div class="qcard">
+    <p class="q">Checkpoint</p>
+    <p class="big">In one sentence, in your own words: <strong>what is a program?</strong></p>
+  </div>
+  <p>Turn to the person next to you. Sixty seconds.</p>
+  <p><small>Target answer: a text file the interpreter reads and executes, top to bottom.</small></p>
+  <script type="text/notes">
+    <ul>
+      <li>Actually run the 60 seconds. Take two answers out loud, don't correct them, then show the target.</li>
+      <li>Common wrong answer: "an app." Useful to distinguish — an app is a program with a face on it.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 12 -->
+<section class="slide statement">
+  <p class="kicker">Segment 3 &middot; the load-bearing 10 minutes</p>
+  <h2>The hard part of programming is not the code.</h2>
+  <p class="big"><span class="gold">The hard part is turning a research question into a sequence of unambiguous steps.</span></p>
+  <script type="text/notes">
+    <ul>
+      <li>If you only have time for one segment today, it's this one. Protect it.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 13 -->
+<section class="slide mid">
+  <div class="qcard">
+    <p class="q">On the board &mdash; you tell me the steps</p>
+    <h3 style="margin:0">Research question</h3>
+    <p class="big" style="margin-bottom:0">&ldquo;Is average blood pressure different between patients on drug&nbsp;A versus drug&nbsp;B?&rdquo;</p>
+  </div>
+  <p class="big center">What would a computer have to <em>do</em>, in order?</p>
+  <script type="text/notes">
+    <ul>
+      <li>Go to the whiteboard. Do not advance the slide. Write what they call out, in their words, even if imprecise.</li>
+      <li>When someone says "analyze the data," push: "what specifically? What is step one at the level of what a computer does?"</li>
+      <li>Aim for 6 steps in ~5 minutes. Next slide is the tidy version — reveal it only after the board is full.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 14 -->
+<section class="slide">
+  <h2>The decomposition</h2>
+  <ol class="big">
+    <li>Get the data — from a file, a database, wherever.</li>
+    <li>Look at it. How many patients? What columns? Any missing values?</li>
+    <li>Split patients into a drug-A group and a drug-B group.</li>
+    <li>Compute the mean blood pressure of each group.</li>
+    <li>Ask whether that difference is bigger than chance would give us.</li>
+    <li>Report it — a number <em>and</em> a picture.</li>
+  </ol>
+  <script type="text/notes">
+    <ul>
+      <li>Map their board version onto this. Praise anything they had that this list doesn't — especially step 2, which beginners always skip.</li>
+      <li>Note out loud that step 2 is where the trailing-space bug from slide 4 would have been caught.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 15 -->
+<section class="slide">
+  <h2>Now the reveal: that list <em>is</em> the syllabus</h2>
+  <table>
+    <thead><tr><th style="width:56%">Step</th><th>Where we teach it</th></tr></thead>
+    <tbody>
+      <tr><td>1. Get the data</td><td>Sessions 6&ndash;7 — files, dataframes</td></tr>
+      <tr><td>2. Look at the data</td><td>Session 9 — exploratory analysis</td></tr>
+      <tr><td>3. Split into groups</td><td>Session 8 — filtering &amp; wrangling</td></tr>
+      <tr><td>4. Compute group means</td><td>Session 7 — summarising</td></tr>
+      <tr><td>5. Test the difference</td><td>Session 11 — univariate statistics</td></tr>
+      <tr><td>6. Report it</td><td>Sessions 10 &amp; 13 — visualization, communication</td></tr>
+    </tbody>
+  </table>
+  <p class="center"><strong>Sessions 2&ndash;5 are the grammar you need to write any of them.</strong></p>
+  <script type="text/notes">
+    <ul>
+      <li>This slide is why students stop asking "when do we get to the real stuff." Everything is the real stuff.</li>
+      <li>Come back to this slide at the start of each unit.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 16 -->
+<section class="slide">
+  <h2>Harder: your turn, in pairs</h2>
+  <div class="qcard">
+    <p class="q">Decompose this</p>
+    <p class="big" style="margin-bottom:0">You have expression measurements for 20,000 genes across 100 tumor samples and 100 healthy samples. <strong>Which genes are most different?</strong></p>
+  </div>
+  <p>Three minutes. Numbered steps. Be annoyingly specific.</p>
+  <p><small>Watch out for: what does &ldquo;most different&rdquo; mean? Different on average? Different relative to the noise? And you are about to run 20,000 tests — does that change anything?</small></p>
+  <script type="text/notes">
+    <ul>
+      <li>The point is not that they get it right. The point is that they discover the question is ambiguous — "most different" is doing enormous work.</li>
+      <li>If a pair finishes early, ask them the multiple-testing question. Don't explain it; just plant it.</li>
+      <li>Cut to 90 seconds if you're behind schedule.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 17 -->
+<section class="slide statement">
+  <h2>When you ask an AI to &ldquo;analyze my data,&rdquo; it has to <em>guess</em> all six steps.</h2>
+  <p class="big"><span class="gold">When you can name step 3 and step 5 in the right vocabulary, you get the right answer instead.</span></p>
+  <p>That is the entire value proposition of learning to code in 2026.</p>
+  <script type="text/notes">
+    <ul>
+      <li>This is the thesis of the course in one slide. If a student remembers one thing in December, make it this.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 18 -->
+<section class="slide">
+  <p class="kicker">Segment 4 &middot; 22&ndash;28 min</p>
+  <h2>What AI is actually good at</h2>
+  <div class="cols">
+    <div>
+      <div class="box ok">
+        <p class="box-title">Reliably good</p>
+        <ul class="tight sm">
+          <li><strong>Boilerplate</strong> — imports, plot styling, file reading</li>
+          <li><strong>Syntax you forgot</strong> — &ldquo;how do I open a CSV in pandas?&rdquo;</li>
+          <li><strong>Explaining unfamiliar code</strong> line by line</li>
+          <li><strong>Suggesting libraries</strong> for a task</li>
+          <li><strong>Refactoring code you already understand</strong></li>
+          <li><strong>Translating</strong> Python &harr; R</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="box warn">
+        <p class="box-title">Reliably unreliable</p>
+        <ul class="tight sm">
+          <li>Anything requiring knowledge of <strong>your</strong> data</li>
+          <li>Choosing the right statistical test</li>
+          <li>Noticing a column is text when it should be a number</li>
+          <li>Knowing whether a p-value means anything for your design</li>
+          <li>Small numerical slips — off-by-one, <code>log</code> vs <code>log10</code>, degrees vs radians</li>
+          <li><strong>Hallucinating</strong> functions and packages that don't exist</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footnote">Notice the pattern: the left column is <em>form</em>. The right column is <em>meaning</em>. AI is excellent at form.</div>
+  <script type="text/notes">
+    <ul>
+      <li>The form/meaning distinction in the footnote is the compression of this whole slide. Say it.</li>
+      <li>If you have a hallucinated-package example from your own work, this is the moment.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 19 -->
+<section class="slide">
+  <h2>So: always verify. Concretely.</h2>
+  <div class="pipeline">
+    <div class="step"><b>1 — Expect</b>Before you run it, say what the output should look like. Roughly how big? What shape? What sign?</div>
+    <div class="step"><b>2 — Run</b>Actually execute it. Do not reason about code you have not run.</div>
+    <div class="step"><b>3 — Compare</b>Does the output match what you expected? If not — which one of you is wrong?</div>
+    <div class="step"><b>4 — Explain</b>Can you say, line by line, why it produced that? If not, you don't own it yet.</div>
+  </div>
+  <div class="box gold">
+    <p class="box-title">The line worth writing down</p>
+    <p class="big">If you have no expectation, you are not doing science. <strong>You are doing typing.</strong></p>
+  </div>
+  <script type="text/notes">
+    <ul>
+      <li>Step 1 is the one they'll skip. It's also the only one that catches silent errors.</li>
+      <li>This four-step loop reappears in every single week's tutor activity. Name it now so you can refer back to it.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 20 -->
+<section class="slide">
+  <p class="kicker">Segment 5 &middot; 28&ndash;30 min</p>
+  <h2>Your activity: the Week 1 tutor</h2>
+  <div class="cols-3-2">
+    <div>
+      <div class="box ai">
+        <p class="box-title">Rules of engagement</p>
+        <ul class="tight sm">
+          <li>The tutor <strong>will not give you code.</strong> It asks questions. That is deliberate and it will not budge.</li>
+          <li>Credit comes from <strong>engaging</strong>, not from being right.</li>
+          <li>Say what you think first, even when you're not sure. Especially then.</li>
+          <li>Paste your transcript to Brightspace before you leave.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="box">
+        <p class="box-title">Today's tutor covers</p>
+        <ul class="tight sm">
+          <li>Getting hello world running in both languages</li>
+          <li>Explaining what a program is</li>
+          <li>Two decomposition problems</li>
+          <li>An AI reality check</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p><small>Link on Brightspace. Instructor + TA are circulating — flag us for install problems, not for answers.</small></p>
+  <script type="text/notes">
+    <ul>
+      <li>Warn them explicitly: the tutor is designed to refuse. Students who haven't been told this get frustrated and rate it badly.</li>
+      <li>Frame the refusal as respect, not obstruction: "it thinks you can get there."</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 21 -->
+<section class="slide">
+  <h2>Vocabulary from today</h2>
+  <table class="sm">
+    <tbody>
+      <tr><td style="width:230px"><strong>Program / script</strong></td><td>A text file the interpreter reads and executes, top to bottom.</td></tr>
+      <tr><td><strong>Interpreter</strong></td><td>The software that reads code and does what it says — <code>python</code>, <code>R</code>.</td></tr>
+      <tr><td><strong>Editor</strong></td><td>The software you type code in — VS Code, RStudio.</td></tr>
+      <tr><td><strong>REPL</strong></td><td>Read&ndash;Eval&ndash;Print Loop. The interactive prompt where you type one line at a time.</td></tr>
+      <tr><td><strong>Notebook</strong></td><td>A document mixing code cells and prose — Jupyter, Quarto.</td></tr>
+      <tr><td><strong>Decomposition</strong></td><td>Breaking a question into steps small enough to code.</td></tr>
+    </tbody>
+  </table>
+  <script type="text/notes">
+    <ul>
+      <li>Vocabulary is not trivia here — it's the vocabulary they need to write a precise prompt. Say that.</li>
+    </ul>
+  </script>
+</section>
+
+<!-- ================================================================ 22 -->
+<section class="slide">
+  <h2>Before next week</h2>
+  <div class="cols">
+    <div>
+      <div class="box gold">
+        <p class="box-title">Required</p>
+        <ul class="tight">
+          <li>Confirm Python <em>and</em> R both run — the check script is on Brightspace.</li>
+          <li>Take the <strong>pre-test</strong> on Brightspace.</li>
+          <li>Post your Week 1 tutor transcript.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="box">
+        <p class="box-title">Start thinking about</p>
+        <ul class="tight">
+          <li>Your <strong>project dataset</strong>. Choose by Session 4, register by Session 6.</li>
+          <li>Browse the dataset list on the course guide.</li>
+          <li>Best option: data you already have or already want.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="center big"><strong>Next week:</strong> variables and types — where most of your bugs will come from.</p>
+  <script type="text/notes">
+    <ul>
+      <li>Push hard on the dataset deadline now. Students who pick late produce weak projects.</li>
+      <li>"Data you already have" is genuinely the best answer — their own lab's data makes the whole semester matter.</li>
+    </ul>
+  </script>
+</section>
+
+</div></div>
+<script src="assets/deck.js"></script>
+</body>
+</html>
