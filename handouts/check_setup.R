@@ -1,7 +1,8 @@
 # CPBP 8306 - R environment check.
 #
-# Run this BEFORE Session 1. It tells you what is working and what is
-# missing. It installs nothing and changes nothing.
+# Run this after Session 1, once you have worked through the install guide.
+# It tells you what is working and what is missing. It installs nothing and
+# changes nothing.
 #
 #   In RStudio:  open this file and click Source
 #   In a shell:  Rscript handouts/check_setup.R
@@ -57,7 +58,8 @@ if (length(problems) > 0) {
   cat("\nInstalling the tidyverse covers most of the list in one go:\n")
   cat('   install.packages("tidyverse")\n')
   cat("\nThat one takes a few minutes. Start it and go get coffee.\n")
-  cat("Still stuck after ten minutes? Bring it to Session 1.\n")
+  cat("Still stuck after ten minutes? Stop, and bring it to study hall -\n")
+  cat("Mondays 10:00-11:00, Light Hall 439 - or ask an instructor or the TA.\n")
 } else {
   cat("Everything checks out. Nothing to do - see you in class.\n")
 }

@@ -1,14 +1,15 @@
 """
 CPBP 8306 - environment check.
 
-Run this BEFORE Session 1. It tells you what is working and what is missing.
-It changes nothing on your computer.
+Run this after Session 1, once you have worked through the install guide.
+It tells you what is working and what is missing, and changes nothing on
+your computer.
 
     python handouts/check_setup.py
 
 If a line says MISSING, the fix is printed right underneath it. If you are
-stuck for more than ten minutes, stop and bring it to class - sorting out
-installs is what the first session's activity time is for.
+stuck for more than ten minutes, stop - bring it to study hall or to the TA
+rather than losing an evening to it.
 """
 
 import importlib
@@ -89,7 +90,8 @@ if problems:
         print("   " + p)
     print("\nIf several Python packages are missing, one command does them all:")
     print("   pip install pandas numpy matplotlib scipy scikit-learn seaborn jupyter")
-    print("\nStill stuck after ten minutes? Bring it to Session 1.")
+    print("\nStill stuck after ten minutes? Stop, and bring it to study hall -")
+    print("Mondays 10:00-11:00, Light Hall 439 - or ask an instructor or the TA.")
 else:
     print("Everything checks out. Nothing to do - see you in class.")
 print("=" * 66)

@@ -8,8 +8,13 @@ demo breaks, what to cut when you're behind, and the exit ticket.
 | Time | What |
 |---|---|
 | 0–5 | Recap + framing question |
-| 5–35 | Lecture — `slides/NN_*.html` |
+| 5–35 | Lecture — the Session N deck in `slides/` |
 | 35–55 | Tutor activity — `assistants_per_lecture/NN_*.md` |
+
+**Deck formats differ.** Session 1 is PowerPoint
+(`slides/CPBP8306_Session1_Thinking_Like_a_Coder.pptx`); Sessions 2–6 are the
+self-contained HTML decks. Sessions 2 and 3 also have `.pptx` versions — decide
+which one you are teaching from before class and open only that one.
 
 **Standing rule:** you will not finish the deck if you take every question.
 Each session below has a "cut this first" line. Decide before class, not at
@@ -18,6 +23,26 @@ minute 32.
 ---
 
 ## Driving the decks
+
+### Session 1 — PowerPoint
+
+Open `slides/CPBP8306_Session1_Thinking_Like_a_Coder.pptx`. 16 slides, 16:9.
+Speaker notes are on every slide — use **Presenter View** (Slide Show →
+Presenter View, or Alt+F5) so they land on your screen and not the projector.
+
+| Key | Does |
+|---|---|
+| → ↓ space | next |
+| ← ↑ | previous |
+| **B** | black out the screen (use this when you go to the whiteboard) |
+| Ctrl+P / Ctrl+A | pen / back to arrow |
+| Esc | end the show |
+
+Presenter View gives you the notes, a timer, and the next-slide preview. Set it
+up on the classroom machine *before* students arrive — it is the one thing that
+goes wrong on a projector you have not used before.
+
+### Sessions 2–6 — HTML
 
 Open `slides/NN_*.html` in a browser. Everything is offline — no network, no CDN.
 
@@ -38,9 +63,27 @@ board — it keeps the projector from showing your desktop.
 
 ---
 
+## Before Session 1 — post to Brightspace tonight
+
+Session 1 is install-led and every one of these is load-bearing in the room.
+**`instructor/brightspace_session1.md` has the paste-ready copy for each item.**
+
+- [ ] **The four download links**, on the Session 1 page, in this order:
+      Python <https://www.python.org/downloads/> ·
+      VS Code <https://code.visualstudio.com/> ·
+      R <https://cran.r-project.org/> ·
+      RStudio <https://posit.co/download/rstudio-desktop/>
+- [ ] `handouts/install_guide.md` — the written version of the whole install block
+- [ ] `handouts/check_setup.py` and `handouts/check_setup.R`
+- [ ] The Session 1 tutor link — **live at** `chatgpt.com/g/g-6a8f87ff4fc88191beb3a40405c0f2e3-…` (full URL in `instructor/gpt_links.md`) — with the submission set to accept **pasted text**
+- [ ] The deck, `CPBP8306_Session1_Thinking_Like_a_Coder.pptx`
+- [ ] `handouts/unit1_cheatsheet.md`
+
+---
+
 ## Before the semester
 
-- [ ] Post `handouts/check_setup.py` and `handouts/check_setup.R` to Brightspace with the pre-work
+- [ ] Post `handouts/check_setup.py` and `handouts/check_setup.R` to Brightspace
 - [ ] Post `handouts/unit1_cheatsheet.md` (students will use it all semester)
 - [ ] Generate the dataset: `python data/make_patients.py`, and post `data/patients.csv`
 - [ ] Deploy the six per-lecture tutors and the Unit 1 tutor; put the links in Brightspace
@@ -50,24 +93,77 @@ board — it keeps the projector from showing your desktop.
 
 ## Session 1 — Thinking Like a Coder
 
-**Open before class:** `demos/01_the_hook.py` in a terminal, `hello.py` in VS Code,
-an R console, the deck.
+> **This session is install-led.** No pre-work install instructions went out this
+> year, so assume nobody arrives with anything on their laptop. Minutes 12–40 are
+> a guided install and the tutor activity has moved to homework. The deck is 20
+> slides and already reflects this; so does `lectures/01_intro_setup_thinking.md`.
 
-**The demo that carries the session:** `python demos/01_the_hook.py`. Run
+**Post to Brightspace the night before** — see the checklist at the top of this
+file. The four download links must be on the Session 1 page before you walk in,
+because minute 12 depends on them.
+
+**Open before class:** the deck in Presenter View · `demos/01_the_hook.py` in a
+terminal at the repo root · the Brightspace Session 1 page with the four download
+links, on a second tab you can project instantly · `hello.py` in VS Code and
+`hello.R` in RStudio for the checkpoint.
+
+**The demo that carries the session (3–9):** `python demos/01_the_hook.py`. Run
 PART ONE only, ask "would you write this up?", then PART TWO. The
 `value_counts()` output shows two rows both labeled `A` — the space is
-invisible — which is the whole lesson in one screenshot.
+invisible — which is the whole lesson in one screenshot. Then PART THREE.
 
-**Where it goes wrong:** installs. Expect a third of the room to have something
-broken. Do not debug from the front — note who, and have the TA triage during
-the activity.
+### The install block (12–40) — how it actually goes
 
-**Cut this first:** the second decomposition exercise (gene expression, slide 16).
-Drop it to 90 seconds or skip.
+**Minute 12 is downloads, not installs.** Project the Brightspace links and make
+everyone start all four before anyone runs anything. On classroom wifi the
+download is the slow part, and they download in parallel. The tool tour (slide 8)
+exists to fill that time — watch the progress bars, not the clock.
 
-**Protect at all costs:** slides 12–17, decomposition. It is the thesis of the course.
+**If the room's bandwidth collapses:** stagger it. Back half starts R and RStudio
+(the big ones), front half starts Python and VS Code, then swap.
 
-**Exit ticket:** *In one sentence: what is a program?*
+**Install order is Python → VS Code → R → RStudio.** Only one ordering constraint
+is real: **R before RStudio.** RStudio installed first launches and announces it
+cannot find R, which reads as catastrophic and is a thirty-second fix.
+
+**The one thing to say twice:** on Windows, "Add python.exe to PATH" is at the
+bottom of the installer's first screen, unticked by default, in small text. It is
+the most common cause of a broken Session 2.
+
+**Do not debug individual laptops from the front.** The TA triages; you keep the
+room moving. Anyone finished early should be helping a neighbour — say it out
+loud, it genuinely halves the block.
+
+**Hard stop at minute 34** regardless of where the room is. Slide 12 is the
+checkpoint, slide 13 is the escape hatch, and both are built for a half-finished
+room.
+
+**Slide 13 is the slide that matters most for the students who are struggling.**
+Say "nothing else today needs a laptop" slowly and mean it. A student whose
+install failed is deciding right now whether this course is for them.
+
+**Cut this first:** the tool tour (slide 8) — if downloads finish fast, drop it to
+two minutes and start installing. After that, compress the verify loop (slide 17)
+to 60 seconds. Do not cut it entirely.
+
+**Protect at all costs:** **slides 14–15**, decomposition. It is the thesis of the
+course, it needs no laptop, and it is the part of today that is not plumbing. If
+the installs run long, take the time from slides 16–17, not from here.
+
+**Already cut:** the in-class pairs exercise on gene expression. It is Problem 4
+of the tutor, which students now do as homework. Do not reinstate it.
+
+**Deck timings:** slide 6 carries the agenda — be there at minute 9, gone by 12.
+Slide 7 (downloads) at 12. Slide 12 (checkpoint) at 34. Slide 18 (handoff) at 53.
+
+**Also do not leave without:** the project dataset deadlines — choose by Session
+4, register on Brightspace by Session 6 (slide 20). Students who pick late
+produce weak projects.
+
+**Exit tickets:** *In one sentence: what is a program?* — run it as the 60-second
+checkpoint on slide 12 rather than at the end. And, given the day: *what is still
+not installed on your laptop?* That one tells you exactly what Monday's study
+hall is for.
 
 ---
 

@@ -1,20 +1,38 @@
 # Slide decks — Sessions 1–6
 
-Six lecture decks for Unit 1, one HTML file each.
+Lecture decks for Unit 1.
 
 ```
 slides/
 ├── assets/deck.css    shared styling
 ├── assets/deck.js     the slide engine (~250 lines, no dependencies)
-├── 01_intro_setup_thinking.html
+├── CPBP8306_Session1_Thinking_Like_a_Coder.pptx   ← Session 1 (PowerPoint)
 ├── 02_variables_types.html
+├── 02_variables_types.pptx
+├── 03_collections_indexing.pptx
 ├── 03_collections_indexing.html
 ├── 04_control_flow.html
 ├── 05_functions_modular.html
 └── 06_projects_git.html
 ```
 
-## Using them
+## Session 1 is PowerPoint
+
+`CPBP8306_Session1_Thinking_Like_a_Coder.pptx` — 20 slides, 16:9, speaker notes
+on every slide. Run it in **Presenter View** (Alt+F5) so the notes stay off the
+projector. `B` blanks the screen. It replaces the old
+`01_intro_setup_thinking.html`, which has been removed.
+
+**It is install-led.** Slides 7 and 9–13 walk the room through installing
+Python, VS Code, R, and RStudio, because no pre-work went out this year. The
+tutor activity moved to homework. See `../instructor/run_of_show_unit1.md`.
+
+Sessions 2 and 3 exist in **both** formats. They are parallel versions of the
+same content, not sequels — pick one per session and open only that one, or the
+slide numbers in `../instructor/run_of_show_unit1.md` will not match what is on
+the projector.
+
+## Using the HTML decks
 
 Double-click any `.html` file. That's it — it opens in your browser and works
 **completely offline**. No network, no CDN, no build step, no install. This is

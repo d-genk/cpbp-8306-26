@@ -5,7 +5,7 @@ Everything here is for *teaching* the Python section; the lecture `.md` files
 remain the source of truth for content, and these decks follow them.
 
 ```
-slides/          six lecture decks, one HTML file each
+slides/          lecture decks — Session 1 as .pptx, Sessions 2-6 as HTML
 demos/           the live-coding scripts the decks reference
 data/            the shared teaching dataset (+ generator) and penguins.csv
 handouts/        student-facing: setup checks, Unit 1 reference card
@@ -19,7 +19,7 @@ instructor/      run-of-show, rubric, diagnosis bank, review notes
 | If you want to… | Read |
 |---|---|
 | Teach Session N tomorrow | `instructor/run_of_show_unit1.md` → the Session N section |
-| Project the slides | Open `slides/0N_*.html`. Press **`s`** for speaker notes. |
+| Project the slides | Session 1: open the `.pptx` in Presenter View (Alt+F5). Sessions 2–6: open `slides/0N_*.html` and press **`s`** for speaker notes. |
 | Know what changed and what still needs your decision | `instructor/review_notes.md` |
 | Grade the weekly transcripts | `instructor/participation_rubric.md` |
 
@@ -27,11 +27,17 @@ instructor/      run-of-show, rubric, diagnosis bank, review notes
 
 ## The decks
 
-`slides/01`–`06`, one HTML file each. **Double-click and they work offline** —
-no network, no build step, no install. Keep `slides/assets/` next to them.
+Session 1 is `CPBP8306_Session1_Thinking_Like_a_Coder.pptx` — 20 slides, speaker
+notes on every one, run it in Presenter View. It is **install-led**: no pre-work
+went out this year, so minutes 12–40 install Python, VS Code, R, and RStudio
+with the room, and the tutor activity is homework. Sessions 2–6 are HTML:
+**double-click and they work offline** — no network, no build step, no install.
+Keep `slides/assets/` next to them. Sessions 2 and 3 also have `.pptx` versions
+of the same content; teach from one format or the other, not both.
 
-Keys: `→`/`←` navigate · **`s` speaker notes** · `o` overview · `f` fullscreen ·
-`b` blank the screen · `p` save as PDF · `?` help.
+HTML deck keys: `→`/`←` navigate · **`s` speaker notes** · `o` overview ·
+`f` fullscreen · `b` blank the screen · `p` save as PDF · `?` help.
+PowerPoint: `→`/`←` navigate · `B` blanks the screen · notes live in Presenter View.
 
 Every slide has speaker notes containing timing cues, the answers to the
 predict-first exercises, and "don't reveal this yet" warnings. **Several slides
@@ -73,9 +79,11 @@ package installs fail in class. Note the column-count discrepancy flagged in
 
 ## Handouts
 
-- `handouts/check_setup.py` / `check_setup.R` — students run these *before*
+- `handouts/install_guide.md` — the written version of the Session 1 install
+  block, for anyone who does not finish in class. **Post this with the deck.**
+- `handouts/check_setup.py` / `check_setup.R` — students run these *after*
   Session 1. Reports what's missing and prints the fix. Changes nothing.
-  **Post both with the pre-work.**
+  **Post both alongside the install guide.**
 - `handouts/unit1_cheatsheet.md` — one reference card for all six sessions.
   The 0-vs-1-indexing table alone is worth printing.
 
