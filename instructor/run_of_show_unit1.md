@@ -68,6 +68,7 @@ board — it keeps the projector from showing your desktop.
 Session 1 is install-led and every one of these is load-bearing in the room.
 **`instructor/brightspace_session1.md` has the paste-ready copy for each item.**
 
+- [ ] **The pre-test link**, on the Session 1 page: https://forms.cloud.microsoft/r/ee6cN6cpkz
 - [ ] **The four download links**, on the Session 1 page, in this order:
       Python <https://www.python.org/downloads/> ·
       VS Code <https://code.visualstudio.com/> ·
@@ -94,8 +95,8 @@ Session 1 is install-led and every one of these is load-bearing in the room.
 ## Session 1 — Thinking Like a Coder
 
 > **This session is install-led.** No pre-work install instructions went out this
-> year, so assume nobody arrives with anything on their laptop. Minutes 12–40 are
-> a guided install and the tutor activity has moved to homework. The deck is 20
+> year, so assume nobody arrives with anything on their laptop. Minutes 14–40 are
+> a guided install and the tutor activity has moved to homework. The deck is 21
 > slides and already reflects this; so does `lectures/01_intro_setup_thinking.md`.
 
 **Post to Brightspace the night before** — see the checklist at the top of this
@@ -107,16 +108,21 @@ terminal at the repo root · the Brightspace Session 1 page with the four downlo
 links, on a second tab you can project instantly · `hello.py` in VS Code and
 `hello.R` in RStudio for the checkpoint.
 
-**The demo that carries the session (3–9):** `python demos/01_the_hook.py`. Run
+**Open with the pre-test (0–3, slide 2):** https://forms.cloud.microsoft/r/ee6cN6cpkz — up on the projector before you
+say anything, while people are still settling in. Two minutes, phone is fine,
+graded on completion. Leave it up during attendance. Most finish inside 90
+seconds; any time you save goes into the install block.
+
+**The demo that carries the session (5–11):** `python demos/01_the_hook.py`. Run
 PART ONE only, ask "would you write this up?", then PART TWO. The
 `value_counts()` output shows two rows both labeled `A` — the space is
 invisible — which is the whole lesson in one screenshot. Then PART THREE.
 
-### The install block (12–40) — how it actually goes
+### The install block (14–40) — how it actually goes
 
-**Minute 12 is downloads, not installs.** Project the Brightspace links and make
+**Minute 14 is downloads, not installs.** Project the Brightspace links and make
 everyone start all four before anyone runs anything. On classroom wifi the
-download is the slow part, and they download in parallel. The tool tour (slide 8)
+download is the slow part, and they download in parallel. The tool tour (slide 9)
 exists to fill that time — watch the progress bars, not the clock.
 
 **If the room's bandwidth collapses:** stagger it. Back half starts R and RStudio
@@ -134,34 +140,35 @@ the most common cause of a broken Session 2.
 room moving. Anyone finished early should be helping a neighbour — say it out
 loud, it genuinely halves the block.
 
-**Hard stop at minute 34** regardless of where the room is. Slide 12 is the
-checkpoint, slide 13 is the escape hatch, and both are built for a half-finished
+**Hard stop at minute 34** regardless of where the room is. Slide 13 is the
+checkpoint, slide 14 is the escape hatch, and both are built for a half-finished
 room.
 
-**Slide 13 is the slide that matters most for the students who are struggling.**
+**Slide 14 is the slide that matters most for the students who are struggling.**
 Say "nothing else today needs a laptop" slowly and mean it. A student whose
 install failed is deciding right now whether this course is for them.
 
-**Cut this first:** the tool tour (slide 8) — if downloads finish fast, drop it to
-two minutes and start installing. After that, compress the verify loop (slide 17)
+**Cut this first:** the tool tour (slide 9) — if downloads finish fast, drop it to
+two minutes and start installing. After that, compress the verify loop (slide 18)
 to 60 seconds. Do not cut it entirely.
 
-**Protect at all costs:** **slides 14–15**, decomposition. It is the thesis of the
+**Protect at all costs:** **slides 15–16**, decomposition. It is the thesis of the
 course, it needs no laptop, and it is the part of today that is not plumbing. If
-the installs run long, take the time from slides 16–17, not from here.
+the installs run long, take the time from slides 17–18, not from here.
 
 **Already cut:** the in-class pairs exercise on gene expression. It is Problem 4
 of the tutor, which students now do as homework. Do not reinstate it.
 
-**Deck timings:** slide 6 carries the agenda — be there at minute 9, gone by 12.
-Slide 7 (downloads) at 12. Slide 12 (checkpoint) at 34. Slide 18 (handoff) at 53.
+**Deck timings:** slide 2 (pre-test) at 0. Slide 7 carries the agenda — be there
+at minute 11, gone by 14. Slide 8 (downloads) at 14. Slide 13 (checkpoint) at 34.
+Slide 19 (handoff) at 53.
 
 **Also do not leave without:** the project dataset deadlines — choose by Session
-4, register on Brightspace by Session 6 (slide 20). Students who pick late
+4, register on Brightspace by Session 6 (slide 21). Students who pick late
 produce weak projects.
 
 **Exit tickets:** *In one sentence: what is a program?* — run it as the 60-second
-checkpoint on slide 12 rather than at the end. And, given the day: *what is still
+checkpoint on slide 13 rather than at the end. And, given the day: *what is still
 not installed on your laptop?* That one tells you exactly what Monday's study
 hall is for.
 

@@ -7,6 +7,7 @@
 **Companion tutor:** `assistants_per_lecture/01_intro_setup_thinking_tutor.md`
 **Companion demo:** `demos/01_the_hook.py` (run from the repo root)
 **Student handout:** `handouts/install_guide.md`
+**Pre-test:** https://forms.cloud.microsoft/r/ee6cN6cpkz (due today, per the syllabus)
 
 ---
 
@@ -54,21 +55,46 @@ By the end of this session, students should be able to:
 
 | Time     | Segment                                                        | Slides |
 |----------|----------------------------------------------------------------|--------|
-| 0–3      | Why this course exists (the AI honesty conversation)           | 1–2    |
-| 3–9      | Live demo: code that ran and was still wrong                   | 3–4    |
-| 9–12     | The course contract + roadmap                                  | 5–6    |
-| 12–14    | **Start all four downloads**                                   | 7      |
-| 14–18    | Tool tour — delivered *while* the downloads run                | 8      |
-| 18–34    | Guided install: Python → VS Code → R → RStudio                 | 9–11   |
-| 34–38    | Hello world in both languages — the install checkpoint         | 12     |
-| 38–40    | Triage: who is stuck, and what happens to them                 | 13     |
-| 40–48    | Decomposition (whiteboard)                                     | 14–15  |
-| 48–53    | What AI is (and isn't) good at; the verify loop                | 16–17  |
-| 53–55    | Handoff: the tutor activity, now homework                      | 18–20  |
+| 0–3      | **The pre-test** — do it now, on a phone                       | 2      |
+| 3–5      | Why this course exists (the AI honesty conversation)           | 3      |
+| 5–11     | Live demo: code that ran and was still wrong                   | 4–5    |
+| 11–14    | The course contract + roadmap                                  | 6–7    |
+| 14–16    | **Start all four downloads**                                   | 8      |
+| 16–19    | Tool tour — delivered *while* the downloads run                | 9      |
+| 19–34    | Guided install: Python → VS Code → R → RStudio                 | 10–12  |
+| 34–38    | Hello world in both languages — the install checkpoint         | 13     |
+| 38–40    | Triage: who is stuck, and what happens to them                 | 14     |
+| 40–48    | Decomposition (whiteboard)                                     | 15–16  |
+| 48–53    | What AI is (and isn't) good at; the verify loop                | 17–18  |
+| 53–55    | Handoff: the tutor activity, now homework                      | 19–21  |
+
+The pre-test costs three minutes it is worth paying at the top, while people are
+still settling in. The time comes back out of the tool tour and the R/RStudio
+block, both of which are download-bound anyway — and most students finish the
+survey in under 90 seconds, in which case it goes straight back to the install.
 
 ---
 
-## Segment 1 (0–3 min): Why this course exists
+## Segment 0 (0–3 min): The pre-test
+
+Put this up before you do anything else, while laptops are still opening:
+
+**https://forms.cloud.microsoft/r/ee6cN6cpkz**
+
+Say the three things that get people to actually submit it: *two minutes, your
+phone is fine, graded on completion.* Then the honest version — we run the same
+survey at the end of the semester, and comparing the two is how we find out
+whether the course worked. "Not confident at all" is a genuinely useful answer.
+
+Leave the URL up while you take attendance. Anyone without a device does it
+tonight; do not stall the room for it.
+
+The syllabus dates the pre-test to Session 1, so this closes it out in class
+rather than hoping it gets done at home.
+
+---
+
+## Segment 1 (3–5 min): Why this course exists
 
 Talking points:
 
@@ -79,7 +105,7 @@ Talking points:
 
 ---
 
-## Segment 2 (3–9 min): Code that ran and was still wrong — the demo
+## Segment 2 (5–11 min): Code that ran and was still wrong — the demo
 
 This is the hook, and it is the reason the rest of the hour has stakes. **Run it
 live** — do not screenshot it:
@@ -112,7 +138,7 @@ equal-variance assumption in `ttest_ind`, and effect size are Sessions 9 and 11.
 
 ---
 
-## Segment 3 (9–12 min): The course contract
+## Segment 3 (11–14 min): The course contract
 
 Two columns — what this course is, and what it isn't.
 
@@ -134,7 +160,7 @@ bug and the paper is wrong, that is your bug and your paper.**
 
 ---
 
-## Segment 4 (12–14 min): Start all four downloads
+## Segment 4 (14–16 min): Start all four downloads
 
 Nothing else happens until this does. Put the Brightspace links page on the
 projector *before* you explain anything, and say it in this order:
@@ -164,7 +190,7 @@ homework slide.
 
 ---
 
-## Segment 5 (14–18 min): Tool tour — while the downloads run
+## Segment 5 (16–19 min): Tool tour — while the downloads run
 
 This is the same tool tour as always; it just has a new job, which is to use
 download time productively. Four minutes maximum, and watch the progress bars
@@ -190,12 +216,12 @@ not ChatGPT** (one is autocomplete, the other is a conversation).
 
 ---
 
-## Segment 6 (18–34 min): The guided install
+## Segment 6 (19–34 min): The guided install
 
 Install on the projector, at the room's pace, in this order. The order is not
 arbitrary: **R must be installed before RStudio.**
 
-### 18–23 — Python (slide 9)
+### 19–24 — Python (slide 10)
 
 The whole segment is one checkbox. On Windows, **"Add python.exe to PATH"** is
 at the bottom of the installer's first screen, in small text, unticked by
@@ -208,7 +234,7 @@ Verify with `python --version` (Windows) or `python3 --version` (macOS). Any
 macOS has nothing to get wrong, so send Mac users ahead to VS Code while you
 work the Windows room.
 
-### 23–27 — VS Code (slide 10)
+### 24–28 — VS Code (slide 11)
 
 Accept the defaults. Then two extensions, **both published by Microsoft**:
 Python and Jupyter. Make them check the publisher line — there are lookalikes.
@@ -219,7 +245,7 @@ This is the moment to land the confusion from the tool tour, concretely:
 Anyone finished early should be helping a neighbour. Say it out loud — it
 genuinely halves this block.
 
-### 27–34 — R, then RStudio (slide 11)
+### 28–34 — R, then RStudio (slide 12)
 
 R first, accepting every default. Do not open R itself; there is nothing to see
 and it invites questions you do not have time for.
@@ -382,7 +408,7 @@ The tutor covers six problems in 20 minutes: hello world in both languages ·
 what a program is · two decomposition problems · an AI reality check · the code
 that ran and was still wrong. Problems 3 and 6 are the protected ones.
 
-Point them at the vocabulary slide (19) — the tutor sends students back to it by
+Point them at the vocabulary slide (20) — the tutor sends students back to it by
 name, and it is on Brightspace.
 
 Tell the students whose installs failed to **do the tutor anyway**. Only its
@@ -412,7 +438,7 @@ Source: `assistants_per_lecture/01_intro_setup_thinking_tutor.md`.
 
 ---
 
-## Before you go — assign at slide 20
+## Before you go — assign at slide 21
 
 **Required — a heavier week than planned, and worth saying so honestly:**
 
@@ -420,7 +446,7 @@ Source: `assistants_per_lecture/01_intro_setup_thinking_tutor.md`.
 - Run `handouts/check_setup.py` and `check_setup.R` and fix whatever they name.
 - Do the Session 1 tutor activity and post the transcript. This is your participation grade.
 - Set up Copilot: create a GitHub account, apply for student access, then install the extension in VS Code (and RStudio: Tools → Global Options → Copilot).
-- Take the pre-test on Brightspace. (Graded on completion, not correctness.)
+- Pre-test: done in class. Anyone who missed it — https://forms.cloud.microsoft/r/ee6cN6cpkz
 
 **Start thinking about the project:**
 
@@ -436,7 +462,7 @@ will come from, including how to read a `TypeError` traceback without panicking.
 ## Exit ticket
 
 *In one sentence: what is a program?* — run as the 60-second checkpoint on slide
-12 rather than at the very end, since the last two minutes are the handoff.
+13 rather than at the very end, since the last two minutes are the handoff.
 
 A second one worth collecting on the way out, given the day: *what is still not
 installed on your laptop?* It tells you exactly what Monday's study hall is for.

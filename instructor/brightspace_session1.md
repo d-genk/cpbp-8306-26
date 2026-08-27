@@ -18,6 +18,8 @@ slip.**
 | `check_setup.R` | `handouts/` | Same, for R |
 | `unit1_cheatsheet.md` | `handouts/` | Reference card for all of Unit 1 |
 
+The **pre-test** is a link, not a file — see section 5.
+
 If Brightspace renders Markdown badly, export `install_guide.md` to PDF — it is
 the one students will actually follow at home, so it needs to be readable on a
 phone.
@@ -91,14 +93,27 @@ Suggested copy:
 
 ## 5. Pre-test
 
-Assumed already distributed. The syllabus dates it to Session 1; the deck and the
-homework list both mention it. If it is not live, it is the one item here that
-can wait a week without breaking anything.
+**Live:** https://forms.cloud.microsoft/r/ee6cN6cpkz
+
+Put it on the Session 1 page. Students take it in the first three minutes of
+class (deck slide 2), so this link needs to be reachable from a phone.
+
+Suggested copy:
+
+> **Pre-test — take it at the start of Session 1.**
+>
+> A few quick questions about how confident you feel about coding, plus one
+> short written answer. Two minutes; your phone is fine.
+>
+> **Graded on completion, not correctness.** There is nothing to study. We run
+> the same survey at the end of the semester — comparing the two is how we find
+> out whether this course worked, so answer honestly.
 
 ---
 
 ## Night-before checklist
 
+- [ ] Pre-test link on the Session 1 page, and open it on a phone to confirm it works
 - [ ] Four download links on the Session 1 page, clickable, in order
 - [ ] Install guide uploaded (and readable — check it on a phone)
 - [ ] Deck uploaded
