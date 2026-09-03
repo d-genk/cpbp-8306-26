@@ -313,14 +313,21 @@ the R shape — but the two need to agree, because this line is the first thing
 students will run and a mismatch on slide one of Unit 2 undermines the
 "always check what you loaded" habit you're trying to build.
 
-### `assistants_per_lecture/02_variables_types_gpt.md`
+### `assistants_per_lecture/02_variables_types_tutor.md` — RESOLVED
 
-Problem 2's aside — "if they were writing R (where `"42" + 8` would also fail
-differently)" — is vague enough that the tutor may improvise something wrong. R
-gives `Error in "42" + 8 : non-numeric argument to binary operator`, which is
-the *same* outcome as Python (a loud refusal), not a different one. Worth
-tightening, because the interesting contrast is elsewhere: R refuses on `+` but
-silently coerces inside `c()`. That's the comparison with teeth.
+> Was: Problem 2's aside — "if they were writing R (where `"42" + 8` would also
+> fail differently)" — is vague enough that the tutor may improvise something
+> wrong. R gives `Error in "42" + 8 : non-numeric argument to binary operator`,
+> which is the *same* outcome as Python (a loud refusal), not a different one.
+
+**Fixed in the Session 2 rewrite (2026-09-02).** The aside is gone; Problem 2
+now stays in Python and asks whether refusing to guess is a good thing, which is
+the question that actually pays off.
+
+The contrast with teeth — R refuses on `+` but **silently coerces inside
+`c()`** — is deliberately held for Session 3, where coercion is core content and
+`c(1, 2, "three")` is the example. Worth making sure the Session 3 deck lands it,
+since that is now the only place it appears.
 
 ### `assistants_by_unit/unit1_foundations_gpt.md`
 

@@ -27,13 +27,19 @@ instructor/      run-of-show, rubric, diagnosis bank, review notes
 
 ## The decks
 
-Session 1 is `CPBP8306_Session1_Thinking_Like_a_Coder.pptx` — 20 slides, speaker
-notes on every one, run it in Presenter View. It is **install-led**: no pre-work
-went out this year, so minutes 12–40 install Python, VS Code, R, and RStudio
-with the room, and the tutor activity is homework. Sessions 2–6 are HTML:
-**double-click and they work offline** — no network, no build step, no install.
-Keep `slides/assets/` next to them. Sessions 2 and 3 also have `.pptx` versions
-of the same content; teach from one format or the other, not both.
+**Sessions 1 and 2 are PowerPoint**, each merged from the earlier HTML and
+PowerPoint variants, with speaker notes on every slide. Run them in Presenter
+View.
+
+- Session 1 (21 slides) is **install-led** — no pre-work went out this year, so
+  minutes 14–40 install Python, VS Code, R, and RStudio with the room, and the
+  tutor activity is homework.
+- Session 2 (17 slides) returns to the standard shape: lecture 0–36, tutor
+  activity in class 36–55.
+
+Sessions 3–6 are still HTML: **double-click and they work offline** — no network,
+no build step, no install. Keep `slides/assets/` next to them. Session 3 also has
+an unmerged `.pptx` variant; teach from one or the other, not both.
 
 HTML deck keys: `→`/`←` navigate · **`s` speaker notes** · `o` overview ·
 `f` fullscreen · `b` blank the screen · `p` save as PDF · `?` help.

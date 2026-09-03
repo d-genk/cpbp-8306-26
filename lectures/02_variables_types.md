@@ -1,8 +1,12 @@
 # Session 2 — Variables, Types, and Expressions
 
 **Unit:** 1 (Foundations)
-**Duration:** 30-minute lecture + 20-minute activity
-**Companion tutor:** `assistants_per_lecture/02_variables_types_gpt.md`
+**Date:** 09/03/2026
+**Duration:** 36-minute lecture + 19-minute tutor activity (55-minute session)
+**Companion deck:** `slides/CPBP8306_Session2_Variables_and_Types.pptx` (17 slides)
+**Companion tutor:** `assistants_per_lecture/02_variables_types_tutor.md`
+**Companion demo:** `demos/02_types_demo.py` (run from the repo root)
+**Data:** `data/patients.csv` — post it to Brightspace before this session
 
 ---
 
@@ -23,25 +27,46 @@ Students should be able to:
 
 ---
 
-## 30-minute outline
+## Session outline
 
-| Time     | Segment                                       |
-|----------|-----------------------------------------------|
-| 0–3      | Recap: decomposition, tool tour               |
-| 3–10     | What is a variable? Assignment vs equality    |
-| 10–18    | The four types + type-checking                |
-| 18–25    | Expressions and operator surprises            |
-| 25–30    | Reading a `TypeError` traceback               |
+| Time     | Segment                                                    | Slides |
+|----------|------------------------------------------------------------|--------|
+| 0–4      | Recap + **install show of hands**                          | 2      |
+| 4–6      | Framing: most bugs are type bugs                           | 3      |
+| 6–7      | Today's objectives                                         | 4      |
+| 7–12     | Assignment is a command, not a claim (Python, then R)      | 5–6    |
+| 12–17    | The four types, and how to check one                       | 7–8    |
+| 17–22    | Two gotchas: booleans as numbers; Excel→CSV                | 9      |
+| 22–24    | **Predict before you run** (protect)                       | 10     |
+| 24–27    | Expressions and operators                                  | 11     |
+| 27–29    | `=` assigns, `==` asks                                     | 12     |
+| 29–31    | Gotcha 3: floats are approximate                           | 13     |
+| 31–34    | Reading a `TypeError` traceback                            | 14     |
+| 34–36    | **Pasting the error into an AI** (protect)                 | 15     |
+| 36–55    | Tutor activity — in class this week                        | 16–17  |
+
+> **Note on the session shape.** Session 1 ran install-led and pushed its tutor
+> activity to homework. Session 2 returns to the standard shape from the
+> syllabus, with the activity back in class. Budget the first four minutes for a
+> show of hands on installs — some of the cohort will still be broken, and today
+> needs Python only, so R can wait another week.
 
 ---
 
-## Segment 1 (0–3 min): Recap
+## Segment 1 (0–4 min): Recap + install check
+
+**First, the show of hands.** Who got both installs working? Note who did not and
+hand those names to the TA for the activity block. Say it plainly: *if it is not
+working you are not behind, but I need to know who you are.* Today's demo needs
+Python only.
+
+Then the recap proper.
 
 Ask: last week we decomposed a blood pressure analysis into steps. Someone name one step. → data cleaning, group split, t-test, etc. Reinforce the map.
 
 ---
 
-## Segment 2 (3–10 min): Variables and assignment
+## Segment 2 (7–12 min): Variables and assignment
 
 Whiteboard the difference between mathematical `=` and programming `=`:
 
@@ -75,7 +100,7 @@ Anti-pattern to call out: `data <- data`. Overwriting is fine; naming everything
 
 ---
 
-## Segment 3 (10–18 min): The four primitive types
+## Segment 3 (12–17 min): The four primitive types
 
 Walk through a table and give a research example of each:
 
@@ -100,15 +125,39 @@ class("P042")         # "character"
 class(TRUE)           # "logical"
 ```
 
-Two research-relevant gotchas:
+---
+
+## Segment 3b (17–22 min): Two research-relevant gotchas
 
 1. **Booleans behave like numbers.** `True + True == 2` in Python. `sum(c(TRUE, FALSE, TRUE))` is `2` in R. This is why `mean(passed_qc)` gives you the fraction of samples that passed — the booleans are being averaged as 1s and 0s. Useful.
 
-2. **A number stored as a string is a common Excel-CSV bug.** `"5" + "3"` in Python is `"53"`, not `8`. This is *the* first bug students hit when their spreadsheet exported IDs as text. We will hit this repeatedly this semester.
+2. **A number stored as a string is a common Excel-to-CSV bug.** `"5" + "3"` in Python is `"53"`, not `8`; `"5" + 3` is a `TypeError`. One stray cell — `"unknown"`, a stray comma, a trailing space — and the whole column loads as text. Ask the room: *is Python refusing to guess a good thing or a bad thing here?* Good: the alternative is a silent wrong answer. Contrast with R's quieter coercion next week.
 
 ---
 
-## Segment 4 (18–25 min): Expressions and operator surprises
+## Segment 3c (22–24 min): Predict before you run — protect this
+
+> Deck slide 10. Sixty seconds, in pairs, answers committed out loud *before*
+> anyone types.
+
+```
+a = 5      b = "5"      c = 5.0      d = True
+
+a == c ?      a == b ?      d == 1 ?      b * 3 ?
+```
+
+Answers: `True` (5 equals 5.0) · `False` · `True` (booleans are numbers) ·
+`'555'` (string repetition).
+
+**`a == b` is the one that matters.** It does not error. It quietly returns
+`False` — which is exactly how a silent bug survives an entire analysis, and it
+is the same failure shape as Session 1's trailing space. Then run it live.
+
+---
+
+---
+
+## Segment 4 (24–27 min): Expressions and operator surprises
 
 An expression is a piece of code that evaluates to a value. `2 + 3` is an expression. `"hello" + " world"` is an expression. Variables can hold expression results:
 
@@ -124,11 +173,19 @@ Operators to introduce:
 |------------|------------------------|----------------------------|
 | `+ - * /`  | arithmetic             | `bp / weight`              |
 | `**` (Py) / `^` (R) | exponent          | `sd**2` / `sd^2`           |
-| `%%`       | modulo (remainder)     | Useful for even/odd checks |
+| `%` (Py) / `%%` (R) | modulo (remainder) | even/odd, every-nth-row checks |
 | `==`       | equality *test* (returns boolean) | `group == "treated"` |
 | `!=`       | not-equal              | `pvalue != NA`             |
 | `< > <= >=`| comparisons            | `age >= 65`                |
-| `and or not` (Py) / `& | !` (R) | logical combos    | `age >= 65 and treated`    |
+| `and or not` (Py) / `& \| !` (R) | logical combos | `age >= 65 and treated` |
+
+Two corrections worth knowing, because both were wrong in an earlier draft of
+this table: **`%%` is R's modulo; Python's is `%`.** And the `|` in R's logical-or
+must be escaped in Markdown or it silently breaks the table.
+
+Everything in the bottom three rows produces a **boolean** — which, per the
+booleans-are-numbers gotcha, you can then `sum()` or `mean()`. That connection is
+the payoff; point at it rather than reading the table.
 
 Big teaching moment: **`=` is assignment, `==` is comparison.** This is the single most common beginner typo. `if x = 5` is an error; `if x == 5` is a test.
 
@@ -142,11 +199,26 @@ True + 1       # 2              — booleans are numeric
 0.1 + 0.2      # 0.30000000000000004  — floats are approximate
 ```
 
-Emphasize the floating-point one. Do **not** use `==` to compare two floats. This will bite students later; foreshadow.
+Emphasize the floating-point one. Do **not** use `==` to compare two floats.
 
 ---
 
-## Segment 5 (25–30 min): Reading a `TypeError`
+## Segment 4b (29–31 min): Gotcha 3 — floats are approximate
+
+`0.1 + 0.2` is `0.30000000000000004`, and `0.1 + 0.2 == 0.3` is `False`.
+
+This is not a Python bug; it is binary floating point, and **R does it too** — it
+just prints fewer digits and hides it. If you have R up, demo it: the comparison
+is `FALSE` in R as well, but `print(0.1+0.2)` shows `0.3`. That makes the larger
+point that a clean-looking printout proves nothing.
+
+Use `abs(a - b) < 1e-9`, `np.isclose()`, or `all.equal()` instead. Where this
+actually bites research code: filtering on an exact threshold, or checking
+whether proportions sum to 1.
+
+---
+
+## Segment 5 (31–34 min): Reading a `TypeError`
 
 Show a real traceback on screen. Something like:
 
@@ -166,7 +238,32 @@ Walk through it:
 
 Teach the phrase: **"read from the bottom up."** This is worth saying out loud twice.
 
-Mention that when you paste an error into ChatGPT, this is exactly what ChatGPT is looking at too — but ChatGPT doesn't know what your variable *should have been*. You do.
+Run the last section of `demos/02_types_demo.py` here. It produces a real
+`TypeError` from the real course data — pandas concatenates every age value into
+one absurd string, because six rows say `"unknown"`. Students remember it.
+
+---
+
+## Segment 6 (34–36 min): Pasting the error into an AI — protect this
+
+> Deck slide 15. This is the AI-literacy core of the week.
+
+Pasting an error into an assistant is a legitimate move. It reads the same four
+things you just read, and it is genuinely good at explaining what a `TypeError`
+means.
+
+**The catch:** it does not know what `ages_str` *should have been*. It will
+confidently suggest `str(10)` — turning the number into text, producing
+`"4210"`, and making the error go away. The error going away is not the bug being
+fixed; you have just converted a crash into a silent wrong answer, which is
+worse.
+
+A better prompt supplies the one thing the model cannot know — intent:
+
+> *"This errors. I expect `ages_str` to hold ages as numbers. Where did it become
+> a string?"*
+
+Connect it back to Session 1's loop: this is **Compare** failing.
 
 ---
 
@@ -190,6 +287,33 @@ Mention that when you paste an error into ChatGPT, this is exactly what ChatGPT 
 
 ---
 
-## Handoff to tutor activity
+## Handoff to tutor activity (36–55 min)
 
-Send students to `assistants_per_lecture/02_variables_types_gpt.md`. The tutor will hand them broken code and ask them to predict its type behavior and diagnose type errors.
+**In class this week**, unlike Session 1. Source:
+`assistants_per_lecture/02_variables_types_tutor.md`.
+
+Six problems in about 19 minutes. The tutor hands them broken code and asks them
+to *predict* what it does before running it. Say the rule out loud before they
+start: **predicting wrong is fine and expected; refusing to predict is not.**
+
+Protected problems are 3 (read a traceback) and 6 (the AI fix that silences the
+error). Anyone whose install is still broken does the activity anyway — every
+problem works as a thought experiment, and the tutor is told so explicitly.
+
+Transcripts to Brightspace **before they leave**. Circulate; the TA takes the
+install failures.
+
+---
+
+## Exit ticket
+
+*You load a CSV and `mean(age)` fails. Name the first thing you check.*
+
+---
+
+## Before next session
+
+- Session 3 is collections — lists, vectors, dictionaries — and the first place
+  Python and R genuinely disagree.
+- **Choose your project dataset by Session 4.** Repeat this every week until
+  Session 6.

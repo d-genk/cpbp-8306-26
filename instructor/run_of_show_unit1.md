@@ -11,10 +11,11 @@ demo breaks, what to cut when you're behind, and the exit ticket.
 | 5–35 | Lecture — the Session N deck in `slides/` |
 | 35–55 | Tutor activity — `assistants_per_lecture/NN_*.md` |
 
-**Deck formats differ.** Session 1 is PowerPoint
-(`slides/CPBP8306_Session1_Thinking_Like_a_Coder.pptx`); Sessions 2–6 are the
-self-contained HTML decks. Sessions 2 and 3 also have `.pptx` versions — decide
-which one you are teaching from before class and open only that one.
+**Deck formats differ.** Sessions 1 and 2 are PowerPoint
+(`CPBP8306_Session1_*.pptx`, `CPBP8306_Session2_*.pptx`), each merged from the
+earlier HTML and PowerPoint variants. Sessions 3–6 are still the self-contained
+HTML decks. Session 3 also has an unmerged `.pptx` variant — merge it the same
+way before you teach it, or pick one and open only that one.
 
 **Standing rule:** you will not finish the deck if you take every question.
 Each session below has a "cut this first" line. Decide before class, not at
@@ -176,21 +177,58 @@ hall is for.
 
 ## Session 2 — Variables and Types
 
-**Open before class:** `demos/02_types_demo.py`, the deck.
+> **The two Session 2 deck variants have been merged.** Teach from
+> `slides/CPBP8306_Session2_Variables_and_Types.pptx` — 17 slides, PowerPoint,
+> Presenter View. The old `.html` and `02_variables_types.pptx` are gone. Slide
+> numbers below are the merged deck's.
 
-**The demo:** run the sections as you reach them. The last section loads the real
-`patients.csv` and produces a genuinely instructive `TypeError` — pandas
-concatenates every age value into one absurd string. Students remember it.
+**Post to Brightspace the night before:**
 
-**Where it goes wrong:** nothing technical. The risk is pace — this deck is
-dense and you will be tempted to lecture the operator table. Don't. Point at
-the bottom three rows and connect them to booleans.
+- [ ] The deck
+- [ ] **`data/patients.csv`** — the demo's last section loads it, and the tutor's
+      Problem 3 references its `age` column. This is the first session that needs it.
+- [ ] The Session 2 tutor link (deploy it from
+      `assistants_per_lecture/02_variables_types_tutor.md`; record the URL in
+      `instructor/gpt_links.md`)
+- [ ] Session 2 participation assignment, accepting **pasted text**, due before students leave
 
-**Cut this first:** the operator table (slide 12) — it's a reference slide, tell
-them so and move.
+**Open before class:** `demos/02_types_demo.py` in a terminal at the repo root ·
+an R console in a second window · the deck in Presenter View.
 
-**Protect:** slide 11 (predict-before-you-run) and slide 16 (the AI fix that
-silences rather than solves).
+### The shape of this session
+
+Session 1 was install-led and pushed its activity to homework. **Session 2
+returns to the standard syllabus shape** — lecture 0–36, tutor activity in class
+36–55.
+
+**Start with a show of hands on installs (slide 2).** Some of the cohort came out
+of Session 1 without a working environment. Get their names to the TA before the
+activity block. Say plainly: *"if it's not working you're not behind, but I need
+to know who you are."* Today needs Python only — R is a comparison, not a
+dependency.
+
+**The demo:** run the sections of `02_types_demo.py` as you reach them. The last
+section loads the real `patients.csv` and produces a genuinely instructive
+`TypeError` — pandas concatenates every age value into one absurd string, because
+six rows say `"unknown"`. Students remember it.
+
+**Where it goes wrong:** nothing technical. The risk is pace — this deck is dense
+and you will be tempted to lecture the operator table. Don't. Point at the bottom
+three rows and connect them to the boolean trick from slide 9. That connection is
+the payoff of the whole first half.
+
+**Cut this first:** the operator table (slide 11) — it's a reference slide, say so
+and move. Next after that: compress the four-types table (slide 7) by asking for
+research examples instead of reading the rows.
+
+**Protect:** **slide 10** (predict-before-you-run) and **slide 15** (the AI fix
+that silences rather than solves). Slide 15 is the AI-literacy core of the week
+and the thread back to Session 1 — if the lecture is running long, take the time
+from slides 7 and 11, not from these.
+
+**A correction that shipped in this deck:** the operator table used to label `%%`
+as the modulo operator without qualification. `%%` is **R's**; Python's is `%`.
+Both the deck and `lectures/02_variables_types.md` are now fixed.
 
 **Exit ticket:** *You load a CSV and `mean(age)` fails. Name the first thing you check.*
 
