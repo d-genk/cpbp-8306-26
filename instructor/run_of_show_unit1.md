@@ -11,11 +11,10 @@ demo breaks, what to cut when you're behind, and the exit ticket.
 | 5–35 | Lecture — the Session N deck in `slides/` |
 | 35–55 | Tutor activity — `assistants_per_lecture/NN_*.md` |
 
-**Deck formats differ.** Sessions 1 and 2 are PowerPoint
-(`CPBP8306_Session1_*.pptx`, `CPBP8306_Session2_*.pptx`), each merged from the
-earlier HTML and PowerPoint variants. Sessions 3–6 are still the self-contained
-HTML decks. Session 3 also has an unmerged `.pptx` variant — merge it the same
-way before you teach it, or pick one and open only that one.
+**Deck formats differ.** Sessions 1–3 are PowerPoint (`CPBP8306_Session1_*.pptx`
+through `CPBP8306_Session3_*.pptx`), each merged from the earlier HTML and
+PowerPoint variants and carrying speaker notes on every slide. Sessions 4–6 are
+still the self-contained HTML decks and have no `.pptx` variant to merge.
 
 **Standing rule:** you will not finish the deck if you take every question.
 Each session below has a "cut this first" line. Decide before class, not at
@@ -236,26 +235,58 @@ Both the deck and `lectures/02_variables_types.md` are now fixed.
 
 ## Session 3 — Collections and Indexing
 
-**Open before class:** `demos/03_collections_demo.py` AND `demos/03_collections_demo.R`,
-side by side in two consoles. Whiteboard clear.
+> **The two Session 3 deck variants have been merged.** Teach from
+> `slides/CPBP8306_Session3_Collections_and_Indexing.pptx` — 13 slides,
+> PowerPoint, Presenter View. The old `.html` and `03_collections_indexing.pptx`
+> are gone. Slide numbers below are the merged deck's.
 
-**The demo:** run the matching sections in both consoles alternately. This is the
-one session where side-by-side is non-negotiable — the `bp[-1]` divergence has
-to be seen, not described.
+**Post to Brightspace the night before:** the deck · the Session 3 tutor link
+(deploy from `assistants_per_lecture/03_collections_indexing_tutor.md`) ·
+participation assignment accepting **pasted text**. Full copy in
+`instructor/brightspace_session3.md`.
 
-**Draw on the board first:** the index ruler from slide 7, before you show the slide.
+**Open before class:** `demos/03_collections_demo.py` AND
+`demos/03_collections_demo.R`, side by side in two visible consoles ·
+the deck in Presenter View · **whiteboard clear**.
 
-**Where it goes wrong:** students conflate the two languages and leave more
-confused than they arrived. Antidote: say which language you're in, out loud,
-every single time you type.
+### The one thing that makes or breaks this session
 
-**Cut this first:** slide 13 (choosing the container) — it's on the cheat sheet.
+**Say which language you are in, out loud, every single time you type.** This is
+the week the two languages genuinely differ, and students who lose track of which
+console they are watching leave more confused than they arrived. Alternate
+between the two windows section by section — never run one demo to completion and
+then the other.
 
-**Protect:** slide 11, boolean masks. Build it in three stages live: print the
-mask alone, then use it, then count with it. Students cannot see the mask until
-you print it by itself.
+**Draw the index ruler on the whiteboard before you show slide 6.** The visual is
+what sticks; the slide is the confirmation. Do not skip it.
 
-**Exit ticket:** *In R, `xs <- c(10,20,30)`. What does `xs[-1]` give you, and why?*
+### Timing and protection
+
+Lecture 0–36, tutor activity in class 36–55.
+
+**Protect, in order of how much it would hurt to lose:**
+
+- **Slide 9, boolean masks** — the most important slide in the deck. Three
+  minutes, not one. Build it live in stages: print the mask *alone*, then use it,
+  then count with it. The mask is invisible to students until you print it by
+  itself.
+- **Slide 11, where AI gets this wrong** — the AI-literacy core of the week.
+- **Slide 8, the predict exercise** — ninety seconds, eight answers, written down
+  before anyone runs anything.
+
+**Cut this first:** slide 10's container-choice table — it is on the cheat sheet,
+say so and move. After that, compress slide 4 (lists and vectors) by running the
+demo instead of reading the slide.
+
+**Where it goes wrong:** students conflate the two languages. The antidote is the
+narration discipline above. Second risk is pace — slides 6 and 7 are dense and
+you will want to linger; the budget for both together is nine minutes.
+
+**Be honest on slide 11:** current models often get the `bp[-1]` translation
+*right* if asked carefully. The point is not that AI is stupid — it is that when
+it is wrong here, nothing signals it.
+
+**Exit ticket:** *In R, `xs <- c(10, 20, 30)`. What does `xs[-1]` give you, and why?*
 
 ---
 

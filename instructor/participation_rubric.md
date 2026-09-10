@@ -73,6 +73,20 @@ product — say so in Session 1 so this never becomes a question.
 Accept it this once, then remind them. Text is required because you need to be
 able to search it; also, screenshots of long sessions are unreadable.
 
+**Transcript is missing the student's own turns.**
+Common — it is a copy-paste artifact, not evasion. Four of the eleven Session 2
+transcripts had it. **Do not grade this down**; you genuinely cannot tell
+disengagement from bad copying. Ask for a resubmit, and note that from Session 3
+the assignment specifies plain text with labelled turns
+(`instructor/brightspace_session3.md` §3). If it keeps happening after that, it
+is worth thirty seconds in class rather than a grade penalty.
+
+**The transcript is short — five or six exchanges, ending early.**
+Check whether they stopped or the tutor did. Half of the Session 2 cohort was cut
+short by the tutor skipping problems, not by the student disengaging — see
+`instructor/transcript_findings.md` §1. Grade the engagement you can see, not the
+length.
+
 ---
 
 ## What to tell students, verbatim, in Session 1

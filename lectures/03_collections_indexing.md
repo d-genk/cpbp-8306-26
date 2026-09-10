@@ -1,8 +1,11 @@
 # Session 3 — Collections: Lists, Vectors, and Dictionaries
 
 **Unit:** 1 (Foundations)
-**Duration:** 30-minute lecture + 20-minute activity
-**Companion tutor:** `assistants_per_lecture/03_collections_indexing_gpt.md`
+**Date:** 09/10/2026
+**Duration:** 36-minute lecture + 19-minute tutor activity (55-minute session)
+**Companion deck:** `slides/CPBP8306_Session3_Collections_and_Indexing.pptx` (13 slides)
+**Companion tutor:** `assistants_per_lecture/03_collections_indexing_tutor.md`
+**Companion demos:** `demos/03_collections_demo.py` **and** `demos/03_collections_demo.R` — run side by side, in two visible consoles
 
 ---
 
@@ -24,25 +27,37 @@ Students should be able to:
 
 ---
 
-## 30-minute outline
+## Session outline
 
-| Time     | Segment                                     |
-|----------|---------------------------------------------|
-| 0–3      | Recap: types                                |
-| 3–12     | Lists and vectors                           |
-| 12–20    | Indexing and slicing (0- vs 1-indexed)      |
-| 20–27    | Dictionaries and named lists                |
-| 27–30    | Preview activity                            |
+| Time     | Segment                                                       | Slides |
+|----------|---------------------------------------------------------------|--------|
+| 0–4      | Recap: a container's type is not its contents' type           | 2      |
+| 4–5      | Today's objectives                                            | 3      |
+| 5–10     | Lists and vectors                                             | 4      |
+| 10–14    | R vectors are homogeneous — and silent about it               | 5      |
+| 14–19    | Indexing: 0 vs 1, and the `-1` divergence *(whiteboard)*      | 6      |
+| 19–23    | Slicing: exclusive vs inclusive stop                          | 7      |
+| 23–26    | **Predict — ninety seconds** *(protect)*                      | 8      |
+| 26–30    | **Boolean masks — the idiom that runs the semester** *(protect)* | 9   |
+| 30–33    | Dictionaries, named lists, and choosing a container           | 10     |
+| 33–36    | **Where AI gets this wrong** *(protect)*                      | 11     |
+| 36–55    | Tutor activity — in class                                     | 12–13  |
+
+> **This is the side-by-side week.** Have a Python REPL and an R console open in
+> two visible windows and alternate between them, saying which language you are
+> in *out loud, every single time you type*. Students who lose track of which
+> console they are watching leave more confused than they arrived. The whiteboard
+> index ruler on slide 6 is not optional.
 
 ---
 
-## Segment 1 (0–3 min): Recap
+## Segment 1 (0–4 min): Recap
 
 Ask the room: what's the type of `[1, 2, 3]`? Anyone who says "int" — good chance to point out that a container's type is *not* its contents. `type([1, 2, 3])` is `list`. The contents are ints. This distinction matters.
 
 ---
 
-## Segment 2 (3–12 min): Lists and vectors
+## Segment 2 (5–10 min): Lists and vectors
 
 Motivation: a research dataset column is a sequence of values. We need a container.
 
@@ -78,7 +93,35 @@ Foreshadow: this is exactly what happens when your CSV has one row where "age" i
 
 ---
 
-## Segment 3 (12–20 min): Indexing and slicing
+## Segment 2b (10–14 min): R's silent coercion
+
+> Deck slide 5. **Run this live** — the silence is the lesson.
+
+```r
+c(1, 2, "three")
+# "1"  "2"  "three"   — everything became text. No warning, no error.
+```
+
+Python lists happily hold mixed types (`[117, "high", True]` is legal), but you
+should still keep them homogeneous: a column of one kind of thing is the whole
+idea.
+
+**Contrast with Session 2 explicitly.** Python *refused* to mix types and raised
+a `TypeError`. R *silently converts*. **Loud failure beats quiet wrongness** — a
+crash tells you where to look; a silent conversion does not.
+
+Ask the room: *which behaviour would you rather have?* There is no clean answer,
+and that is a good discussion — it is the deepest philosophical difference
+between the two languages, and it shapes how you debug in each.
+
+Tie it to the real data: six rows of `patients.csv` say `"unknown"` in the `age`
+column. That is this bug, in the dataset they met last week.
+
+---
+
+---
+
+## Segment 3 (14–23 min): Indexing and slicing
 
 This is the segment where students most often get confused. Draw it on the board.
 
@@ -135,7 +178,65 @@ The R idiom `bp[bp > 130]` is the seed of every filter operation you will do thi
 
 ---
 
-## Segment 4 (20–27 min): Dictionaries and named lists
+## Segment 3b (23–26 min): Predict — ninety seconds — protect this
+
+> Deck slide 8. In pairs, all eight answers written down *before* anyone runs
+> anything.
+
+```
+bp  = [117, 122, 141, 130, 118]     # Python
+bp <- c(117, 122, 141, 130, 118)    # R
+
+Python:   bp[2]     bp[1:3]     bp[-2]     bp[:0]
+R:        bp[2]     bp[1:3]     bp[-2]     bp[0]
+```
+
+| | Python | R |
+|---|---|---|
+| `bp[2]` | `141` | `122` |
+| `bp[1:3]` | `[122, 141]` | `117 122 141` |
+| `bp[-2]` | `130` | `117 141 130 118` *(drops the 2nd)* |
+| `bp[:0]` / `bp[0]` | `[]` | `numeric(0)` |
+
+**Dwell on the two empty results.** An empty result is *not* an error. An
+analysis that quietly runs on zero rows is a real failure mode — and it is the
+same shape of bug as Session 1's trailing space.
+
+---
+
+---
+
+## Segment 3c (26–30 min): Boolean masks — protect this
+
+> Deck slide 9. **The most important slide in the deck. Three minutes, not one.**
+
+Build it in stages, live, in R. The mask is invisible to students until you print
+it by itself:
+
+```r
+bp <- c(117, 122, 141, 130, 118)
+bp > 130            # FALSE FALSE TRUE FALSE FALSE   <- print this ALONE first
+bp[bp > 130]        # 141                            <- then use it
+sum(bp > 130)       # 1                              <- then count with it
+```
+
+Read `bp[bp > 130]` out loud as: **"the elements of `bp`, where `bp` is over
+130."**
+
+Ring the bell: *every* filtering operation for the rest of this course is this.
+`dplyr::filter()` is this. `df[df.age > 65]` is this. Learn it here, in five
+elements, before it arrives with fifty thousand rows.
+
+**Be honest about the Python asymmetry.** Plain Python lists do *not* vectorise —
+`bp > 130` is a `TypeError`. It needs numpy, which is Session 7. That is
+genuinely why numpy and pandas exist. Do **not** teach the list-comprehension
+version; comprehensions are Session 4.
+
+---
+
+---
+
+## Segment 4 (30–33 min): Dictionaries and named lists
 
 Motivation: sometimes you don't want position-based lookup. You want name-based lookup. "Give me the sample with ID P042."
 
@@ -182,7 +283,33 @@ The dataframe row from Session 7 onward is essentially a dict-per-row. Foreshado
 
 ---
 
-## Segment 5 (27–30 min): Preview activity
+## Segment 5 (33–36 min): Where AI gets this wrong — protect this
+
+> Deck slide 11. The AI-literacy core of the week.
+
+You have Python, and you ask an AI to translate it to R:
+
+```python
+last_reading = bp[-1]        # Python: the last element
+```
+
+```r
+last_reading <- bp[-1]       # R: everything EXCEPT the first
+```
+
+It runs perfectly. It never errors. Your "last reading" is now most of the
+dataset. The correct R is `bp[length(bp)]` or `tail(bp, 1)`.
+
+**Be honest with them:** current models often get this one *right* if asked
+carefully. The point is not that AI is stupid — it is that when it is wrong here,
+**nothing signals it**. No error, no warning, plausible-looking output.
+
+Tie back to Session 1's loop: this is caught at step 3, **Compare** — and only if
+you had an expectation in the first place.
+
+---
+
+## Segment 6 (36–55 min): Preview activity
 
 The tutor will hand students small lists/vectors and ask them to *predict* the result of various indexing operations before running them. This forces the mental model. Point out that ChatGPT can *run* the code for them but only they can *predict* it.
 
@@ -208,6 +335,35 @@ The tutor will hand students small lists/vectors and ask them to *predict* the r
 
 ---
 
+## Exit ticket
+
+*In R, `xs <- c(10, 20, 30)`. What does `xs[-1]` give you, and why?*
+
+---
+
+## Before next session
+
+- **Bring a candidate project dataset next week.** Even a bad one — a mediocre
+  chosen dataset beats an unchosen perfect one, and they can switch by Session 6.
+- Session 4 is control flow: conditionals, loops, and vectorisation.
+
+---
+
 ## Handoff to tutor activity
 
-`assistants_per_lecture/03_collections_indexing_gpt.md` — the tutor will give increasingly tricky indexing puzzles and cross-language translation problems.
+**In class**, minutes 36–55. Source:
+`assistants_per_lecture/03_collections_indexing_tutor.md`.
+
+Six problems in about nineteen minutes: indexing puzzles that get progressively
+nastier, plus the cross-language translation trap. Say the rule out loud before
+they start — **the tutor will not move on until you commit to a prediction.
+Predicting wrong is fine and expected; refusing to predict is not.**
+
+Protected problems are 3 (boolean masks) and 4 (the AI translation trap).
+
+**Two things to say about transcripts,** both learned from last week's
+submissions: ask for **plain text** with the turns labelled, and tell them to
+expect to reach all six problems — most of last week's cohort stopped at about
+ten minutes, believing they were done.
+
+Transcripts to Brightspace **before they leave**.

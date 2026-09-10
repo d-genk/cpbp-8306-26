@@ -1,0 +1,141 @@
+CPBP 8306 — Session 2: Variables and Types
+Participation Transcript
+
+STUDENT:
+I'm ready.
+
+TUTOR:
+Great. Warm-up: in your own words, what’s the difference between `x = 5` and `x == 5`—and why does that distinction matter?
+
+STUDENT:
+x = 5 is assigning the value 5 to x while x == 5 is asking whether x is assigned to 5 or not. Hence, x = 5 is a command while x == 5 is a function that will return either True or False depending on if the value of x is 5 or not.
+
+TUTOR:
+Yep—you’ve got the important distinction: one is a command and the other asks a question that evaluates to `True` or `False`. Small correction: `x == 5` is an expression, not a function; what do you predict Python does with `if x = 10:`?
+
+STUDENT:
+This is a conditional statement that is saying if x = 10 or if x == 10 is true then execute the following code.
+
+TUTOR:
+You’ve got the intended idea of an `if`, but notice it uses `=` rather than `==`. Predict first: does Python execute it, return `True`/`False`, or refuse the line with an error?
+
+STUDENT:
+Python will execute the code only if x = 10. Otherwise it will skip the designated code.
+
+TUTOR:
+That would be true if it said `if x == 10:`, but here Python sees the assignment operator `=`. Which do you predict happens: Python treats the assignment as the condition, or refuses the line outright?
+
+STUDENT:
+It will treat it as a condition.
+
+TUTOR:
+Good prediction—this is one where Python is stricter than you might expect: it **refuses the line outright with a `SyntaxError`** because `=` can’t be used there as the condition. Why might refusing to run be safer than guessing what you meant?
+
+STUDENT:
+It is not good convention to say if x = 10: because python will not understand the condition since x=10 is understood to be assign x the value 10. Hence, python is protecting itself from bad syntax.
+
+TUTOR:
+Exactly—the refusal prevents an assignment from being silently mistaken for the question you intended to ask. Now Problem 1: for `a = 5`, `b = "5"`, `c = 5.0`, and `d = True`, what do you predict `type()` returns for **all four** before checking?
+
+STUDENT:
+type(a) returns integer, type(b) returns string, type(c) returns float, and type(d) returns boolean.
+
+TUTOR:
+Yep—all four are right: integer, string, float, and boolean. Now predict all three before checking: what will `a == c`, `a == b`, and `d == 1` evaluate to?
+
+STUDENT:
+a == c will return True, a == b will return False, and d == 1 will return True.
+
+TUTOR:
+Exactly—all three predictions are right. Problem 2: suppose `age_str = "42"` and then we try `result = age_str + 8`; predict first—which happens: a `TypeError`, `"428"`, or `50`, and why?
+
+STUDENT:
+A TypeError will occur because age_str is a string rather than an integer or float. While python can concatenate strings together and add integers together it can't add a number to a string. Hence, it returns the type error.
+
+TUTOR:
+Exactly. Python refuses to guess whether you intended arithmetic or concatenation, so the `TypeError` is useful information rather than a silent wrong answer. What do you think whoever wrote this **intended** the result to be, and what type would `age_str` need to become for that to happen?
+
+STUDENT:
+They want it to add 42+8 to get 50. Hence, they need to convert the string value "42" to the integer value 42.
+
+TUTOR:
+Right—the intended operation is numerical addition, so `"42"` needs to become an integer before adding 8. Problem 3: read this traceback **from the bottom line first**—what is it actually complaining about?
+
+Traceback (most recent call last):
+  File "clean.py", line 27, in <module>
+    total = ages.sum() + max_age
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+STUDENT:
+It is a type error one of the variables is an integer while one is a string.
+
+TUTOR:
+Exactly—the `+` is being asked to combine an integer and a string, and Python refuses. Of the two things being added, `ages.sum()` and `max_age`, which do you think is the string, and how would you find out?
+
+STUDENT:
+I think max_age is a string since ages.sum() is a function that likely only outputs integers or floats. To check I would use the type() function on each of the variables.
+
+TUTOR:
+Good—you’d inspect the types rather than just guessing from the variable names, and `max_age` is the string here. Line 27 is where Python crashed, but do you think line 27 is necessarily where the **bug originated**?
+
+STUDENT:
+It likely occurred earlier where a variable was assigned or converted to a string accidentally causing a type error at this step.
+
+TUTOR:
+Exactly—the crash is on line 27, but the bug can be upstream where `max_age` first became a string. Suppose the age data contained six entries recorded as `"unknown"`; at what point in the workflow would you want that type problem to be caught?
+
+STUDENT:
+Early on.
+
+TUTOR:
+Exactly—ideally when the data is first loaded or inspected, before later calculations depend on it. Now Problem 4: for `passed = [True, False, True, True, False]`, predict `sum(passed)` and `sum(passed)/len(passed)` before checking.
+
+STUDENT:
+sum(passed)= 1+0+1+1+0=3 and the length of the list is 5 so sum(passed)/len(passed)=3/5.
+
+TUTOR:
+Exactly: `3/5 = 0.6`. Why might that `0.6` be useful to a researcher—what does it represent if each Boolean records whether a sample passed QC?
+
+STUDENT:
+It means 60% of the data is usable or of high enough quality while 40% of the data is unusable or needs looked at.
+
+TUTOR:
+Exactly—it gives you the **proportion that passed the QC criterion** (though “passed” doesn’t necessarily mean everything else is unusable). Problem 5: predict first—does `0.1 + 0.2 == 0.3` evaluate to `True` or `False`?
+
+STUDENT:
+It evaluates to False because floats suck.
+
+TUTOR:
+Ha—`False` is right; more precisely, floats store many decimal values only approximately in binary, so exact `==` comparisons can surprise you. Problem 6: an AI “fixes” a type error by converting `max_age` to a string; the error disappears, but the intended total `52` becomes `"4210"`—did the AI actually fix the bug?
+
+STUDENT:
+It fixed the bug in the sense that the error is gone but it likely produced an undesired result. Instead of converting both variables to integers and adding them together it converted both to strings and concatenated them. This likely was not desired as typically we want to add numbers together numerically.
+
+TUTOR:
+Exactly—the error disappeared, but the underlying bug was **not** fixed because the result no longer matches the intended calculation. What did the AI know from the error message, and what crucial thing about your data or intent could it **not** know?
+
+STUDENT:
+It knew there was a type error but it didn't realize the context of our data and tried to convert everything to a string instead of an integer which is what we actually wanted.
+
+TUTOR:
+Exactly—the AI could see the type mismatch, but it couldn’t infer what `max_age` was **supposed** to represent. If you wanted the AI to diagnose the cause rather than merely silence the error, what would you include in a better prompt?
+
+STUDENT:
+You could ask for it to identify anywhere there is a data type change or ask how to check variable types?
+
+TUTOR:
+Yes—that shifts the task from “make the error disappear” toward finding where the type went wrong. Even better, what could you explicitly tell the AI about the type you **expect `max_age` to have**?
+
+STUDENT:
+You could let the AI know that max_age should be an integer or float.
+
+TUTOR:
+Exactly—that gives the AI the missing **intent**, so it can help find where `max_age` became a string instead of simply silencing the error.
+
+Before you leave, paste this whole conversation into the Session 2 participation assignment on Brightspace as-is. In one sentence: what’s the **one thing about types** you want to remember when you paste code from an AI?
+
+STUDENT:
+Data types is one of the most fundamental things to understand in programming since it allows you to talk with the interpreter and computer. Hence, while AI can help you with your code and fix errors, including type errors, it is essential for any programmer to have a good understanding of variable types so that you can understand how code is being executed. ie. allows you to read code.
+
+TUTOR:
+Yep—that’s the takeaway. I’d especially keep your distinction that **AI can make a type error disappear without knowing whether the resulting types match your scientific intent**; being able to read the types lets you catch code that runs but is still wrong.

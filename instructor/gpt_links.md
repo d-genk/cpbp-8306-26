@@ -11,7 +11,7 @@ Check prompt lengths before re-deploying: `python instructor/check_prompt_length
 |---|---|---|---|
 | 1 | Thinking Like a Coder | **live** | https://chatgpt.com/g/g-6a8f87ff4fc88191beb3a40405c0f2e3-cpbp-8306-tutor-session-1-thinking-like-a-coder |
 | 2 | Variables and Types | **ready to deploy** — `02_variables_types_tutor.md` | |
-| 3 | Collections and Indexing | not deployed | |
+| 3 | Collections and Indexing | **ready to deploy** — `03_collections_indexing_tutor.md` | |
 | 4 | Control Flow | not deployed | |
 | 5 | Functions and Modular Code | not deployed | |
 | 6 | Projects, Files, Version Control | not deployed | |

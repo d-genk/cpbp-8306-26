@@ -1,0 +1,158 @@
+Okay!
+
+Great. Warm-up: in your own words, what’s the difference between x = 5 and x == 5—and why does that distinction matter?
+
+
+x=5 is assigning 5 to be the value of x, while x==5 is asking if x equals 5 and returns true or false 
+
+Exactly—one is a command that changes what x holds; the other is a question that produces a Boolean result. What do you predict Python does with if x = 10:?
+
+
+Give an error? 
+
+Yes—it gives a SyntaxError; Python refuses that line outright. Next, predict all four before checking: if a = 5, b = "5", c = 5.0, and d = True, what does type() return for each?
+
+
+int, string, float and bool
+
+Yep—with one small Python naming detail: the string type is called str. Now predict all three before checking: what do you think a == c, a == b, and d == 1 return?
+
+
+true, false, true
+
+Yep, all three predictions are right. Notice especially that a == b quietly returns False rather than throwing an error—where else have you seen a wrong answer arrive with no error?
+
+
+I'm not sure
+
+Think back to Session 1’s t-test demo: the code ran cleanly, but something subtle was wrong with a column value. Do you remember what was hiding in that value?
+
+
+Oh right, there were hidden spaces that made some values be thrown out. I assume the spaces made the program think it was a string not a number and so not consider it
+
+You’ve got the important connection: a tiny data mismatch can produce a plausible wrong result without an error. One correction: the issue was a trailing space changing how a value compared, rather than simply turning a number into a string—why is a silent False potentially more dangerous than a TypeError?
+
+
+
+Because you don't know that there is an error happening, and you think the code is running as intended
+
+Exactly—that’s the key idea: code that runs isn’t necessarily code that’s correct. Next: suppose age_str = "42" and then you try result = age_str + 8; predict first—which happens: a TypeError, "428", or 50?
+
+
+
+I think it would be "428" cause it concatenates 
+
+Good prediction—the concatenation idea makes sense if both values were strings. Here one is a str and the other is an int; do you think Python will automatically decide which one to convert, or refuse to guess?
+
+
+Oh true, I guess it would do a Type error
+
+Yep—it raises a TypeError rather than guessing what you intended. Is Python refusing to guess a good thing or a bad thing here, and why?
+
+
+It's good because it could have assumed both are string and pass an incorrect value
+
+Exactly—the visible failure gives you a chance to catch the mismatch instead of accepting a silent wrong result. What do you think whoever wrote this probably intended the result to be, and what kind of conversion would make that intent explicit?
+
+
+it seems they intended both to be considered integers and be added, so you could cast it and write int(age_str)+8
+
+Exactly—you identified the intended type first, then chose the conversion to match it. Now for the important traceback problem: read the bottom line first—what is it actually complaining about?
+
+Traceback (most recent call last):
+  File "clean.py", line 27, in <module>
+    total = ages.sum() + max_age
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+
+its saying you can't add integers and strings cause the + operator doesn't support that
+
+Exactly. Of the two things being added, which one do you suspect is the string, and how would you find out?
+
+
+probably max_age because ages.sum() looks like the function sum is being applied to ages and sum will not work on strings and returns a float
+
+
+
+
+
+Good reasoning that max_age is the likely string. One correction: a sum doesn’t necessarily return a float—its type depends on what’s being summed; what could you inspect about max_age to confirm your suspicion?
+
+
+you could run Type(max_age)
+
+Yes—that’s the right idea; in Python the function name is lowercase: type(max_age). Now the bigger question: line 27 is where the program crashed, but is line 27 necessarily where the bug actually started?
+
+
+no, max_age could have been defined before that
+
+
+
+Exactly—the crash is on line 27, but the type mistake could have happened upstream when max_age got its value. If max_age was supposed to be a number, where would you want to catch that type mismatch: when it first gets its value, or only when the addition crashes?
+
+
+Probably when you first assign the value
+
+Right—catching it when the value enters your analysis keeps the bad type from propagating downstream. Now suppose passed contains True, False, True, True, False: predict first—what would sum(passed) and then sum(passed)/len(passed) give you?
+
+
+sum(passed) gives 3 and sum(passed)/ length(passed) might give zero
+
+3 is right. Before checking the second one, think about Python’s / operator: what do you predict 3 / 5 returns?
+
+
+Well I don't know how division works with integers. I would think 0.6 but it might round to an int like 1
+
+
+
+
+Good uncertainty to flag—Python’s / division doesn’t round just because both inputs are integers. Given that, what do you now predict for sum(passed)/len(passed)?
+
+
+it would be 3/5 which is .6
+
+Exactly, 0.6. For a researcher, what could that 0.6 represent if True means a sample passed quality control?
+
+
+it would mean 60% of the samples passed he quality control
+
+
+
+Exactly—it gives you the proportion that passed QC. Let’s jump to another important one: predict first, does 0.1 + 0.2 == 0.3return True or False?
+
+
+False cause floats have trailing decimals
+
+Right—False; more precisely, floats store many decimal values only approximately in binary, so tiny differences can appear. What does that suggest about using == to compare results involving floats?
+
+
+You shouldn't use == with floats and rather a < or > like 3.0-(.1+.2) <.0001
+
+Exactly—the useful idea is to compare whether the difference is smaller than a chosen tolerance rather than demanding exact equality. Now the key scenario: an AI sees our earlier TypeError and suggests converting max_age to a string; the error disappears, but you get "4210" instead of 52—did the AI actually fix the bug?
+
+
+No it turned it into concatenating string instead of adding numbers
+
+Exactly—the error disappeared, but the intended calculation is still wrong. What did the AI know from the error message, and what could it not know about what max_age was supposed to represent?
+
+
+it knew it was adding a int and str but didn't know which was miss cast
+
+Exactly—it could see the type mismatch, but it couldn’t infer your scientific intent about which type was correct. What could you include in your prompt so the AI knows that max_age is supposed to be numeric?
+
+
+say that max_age is a count that is numeric
+
+Exactly—stating the intended type gives the AI information the error message alone doesn’t contain. To wrap up in one sentence: what’s the one thing about types you want to remember when you paste code or an error into an AI assistant?
+
+
+You want to make sure all you variables are the correct types and define them when talking to AI assistants
+
+Yes—that’s the takeaway: verify that variables have the types you intend, and tell the AI that intent rather than assuming it can infer it.
+Before you leave, paste this whole conversation into the Session 2 participation assignment on Brightspace as-is, including anywhere we changed our minds or went in circles. Credit is for engaging with the questions, not for getting everything right.
+
+
+thanks
+
+You’re welcome! Nice work today. Good luck with the rest of class.

@@ -27,19 +27,19 @@ instructor/      run-of-show, rubric, diagnosis bank, review notes
 
 ## The decks
 
-**Sessions 1 and 2 are PowerPoint**, each merged from the earlier HTML and
-PowerPoint variants, with speaker notes on every slide. Run them in Presenter
-View.
+**Sessions 1–3 are PowerPoint**, each merged from the earlier HTML and PowerPoint
+variants, with speaker notes on every slide. Run them in Presenter View.
 
 - Session 1 (21 slides) is **install-led** — no pre-work went out this year, so
   minutes 14–40 install Python, VS Code, R, and RStudio with the room, and the
   tutor activity is homework.
 - Session 2 (17 slides) returns to the standard shape: lecture 0–36, tutor
   activity in class 36–55.
+- Session 3 (13 slides) is the **side-by-side week** — two consoles, and the
+  whiteboard index ruler is not optional.
 
-Sessions 3–6 are still HTML: **double-click and they work offline** — no network,
-no build step, no install. Keep `slides/assets/` next to them. Session 3 also has
-an unmerged `.pptx` variant; teach from one or the other, not both.
+Sessions 4–6 are still HTML: double-click and they work offline. They have no
+`.pptx` variant to merge.
 
 HTML deck keys: `→`/`←` navigate · **`s` speaker notes** · `o` overview ·
 `f` fullscreen · `b` blank the screen · `p` save as PDF · `?` help.
@@ -102,6 +102,12 @@ package installs fail in class. Note the column-count discrepancy flagged in
 - `instructor/code_diagnosis_bank.md` — 20 broken snippets with answers, tagged
   by session. All of them run; the dangerous ones are marked **SILENT**.
 - `instructor/review_notes.md` — the review of the existing content.
+- `instructor/transcript_findings.md` — what the submitted tutor transcripts show
+  about how the tutors actually behave in the room. Worth repeating each week.
+- `instructor/deploying_gpt_tutors.md` · `instructor/gpt_links.md` — turning a
+  tutor `.md` into a live ChatGPT Edu GPT, and where the deployed URLs live.
+- `instructor/brightspace_session1.md` … `_session3.md` — paste-ready copy for
+  each week's Brightspace page.
 
 ---
 
